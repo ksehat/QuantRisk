@@ -1,0 +1,577 @@
+{
+    "server_config": {
+        "sc-username": "Data Analysis 1",
+        "sc-password": "DfGy^82@Nms",
+        "sc_url": "https://etrm-ai.quantsys.com/security-service-1.0/",
+        "base_url": "https://etrm-ai.quantsys.com/",
+        "active_cache": false
+    },
+    "config": {
+    "JobInformation": {
+        "TradingCalendar": "21",
+        "TimeZone": "257",
+        "ContinuousTraining": false,
+        "OperationalMode": "Real Time",
+        "OperationalSchedule": "Continuous",
+        "UsePreTrainedModel": null,
+        "useLevels": null,
+        "DataSource": "Static",
+        "JobType": "Regression",
+        "DataType": "TimeSeries",
+        "Market": "2",
+        "InputWindowSize": 1,
+        "OutputWindowSize": 1,
+        "featureImportance": false
+    },
+    "DataProcessing": {
+        "MTSDefinition": {
+            "Curves": [
+                {
+                    "CurveName": "MarketData:Node,1096",
+                    "CurvePhase": "16",
+                    "CurveGrain": "2",
+                    "StartDate": "2021-06-06 00:00:00",
+                    "EndDate": "2021-06-16 23:59:59",
+                    "Type": "absolute"
+                }
+            ],
+            "DateType": "relative",
+            "Operation": "Merge"
+        },
+        "ExecutionInterval": {
+            "DateType": "relative",
+            "StartDate": "2021-06-17 00:00:00",
+            "EndDate": "2021-06-17 03:59:59",
+            "Type": "absolute"
+        },
+        "CurveDetails": [
+            {
+                "Label": "hour",
+                "Property": {
+                    "PredictorType": "Builtin",
+                    "CurveLabel": "hour",
+                    "IndicatorName": "1",
+                    "EnableVisualization": false
+                },
+                "Processors": [],
+                "Input": [
+                    "df1"
+                ]
+            },
+            {
+                "Label": "weekday",
+                "Property": {
+                    "PredictorType": "Builtin",
+                    "CurveLabel": "weekday",
+                    "IndicatorName": "2",
+                    "EnableVisualization": false
+                },
+                "Processors": [],
+                "Input": [
+                    "df1"
+                ]
+            },
+            {
+                "Label": "DAP",
+                "Property": {
+                    "PredictorType": "External",
+                    "CurveLabel": "DAP",
+                    "CurveName": "MarketData:Node,1096",
+                    "CurvePhase": "27",
+                    "CurveGrain": "2",
+                    "ShiftStrategy": null,
+                    "ShiftOffset": null,
+                    "ShiftRegion": null,
+                    "ShiftWeeklyPattern": false,
+                    "ForwardCurve": [],
+                    "FillForwardStrategy": null,
+                    "EnableVisualization": true
+                },
+                "Processors": [
+                    {
+                        "Action": "GapFilling",
+                        "Method": "LinearInterpolation",
+                        "HandleNansAtTheBeginning": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        },
+                        "HandleNansAtTheEnd": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        }
+                    }
+                ],
+                "Input": [
+                    "df1"
+                ]
+            },
+            {
+                "Label": "load-DAP",
+                "Property": {
+                    "PredictorType": "External",
+                    "CurveLabel": "load-DAP",
+                    "CurveName": "MarketData:Node,1096,Type,2",
+                    "CurvePhase": "27",
+                    "CurveGrain": "2",
+                    "ShiftStrategy": null,
+                    "ShiftOffset": null,
+                    "ShiftRegion": null,
+                    "ShiftWeeklyPattern": false,
+                    "ForwardCurve": [],
+                    "FillForwardStrategy": null,
+                    "EnableVisualization": true
+                },
+                "Processors": [
+                    {
+                        "Action": "GapFilling",
+                        "Method": "LinearInterpolation",
+                        "HandleNansAtTheBeginning": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        },
+                        "HandleNansAtTheEnd": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        }
+                    }
+                ],
+                "Input": [
+                    "df1"
+                ]
+            },
+            {
+                "Label": "p1",
+                "Property": {
+                    "PredictorType": "MainTimeSeries",
+                    "CurveLabel": "p1",
+                    "ShiftStrategy": "Simple",
+                    "ShiftOffset": -1,
+                    "ShiftWeeklyPattern": false,
+                    "ShiftRegion": "2",
+                    "EnableVisualization": true
+                },
+                "Processors": [
+                    {
+                        "Action": "GapFilling",
+                        "Method": "LinearInterpolation",
+                        "HandleNansAtTheBeginning": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        },
+                        "HandleNansAtTheEnd": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        }
+                    }
+                ],
+                "Input": [
+                    "df2",
+                    "df1"
+                ]
+            },
+            {
+                "Label": "p2",
+                "Property": {
+                    "PredictorType": "MainTimeSeries",
+                    "CurveLabel": "p2",
+                    "ShiftStrategy": "Simple",
+                    "ShiftOffset": -2,
+                    "ShiftWeeklyPattern": false,
+                    "ShiftRegion": "2",
+                    "EnableVisualization": true
+                },
+                "Processors": [
+                    {
+                        "Action": "GapFilling",
+                        "Method": "LinearInterpolation",
+                        "HandleNansAtTheBeginning": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        },
+                        "HandleNansAtTheEnd": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        }
+                    }
+                ],
+                "Input": [
+                    "df2"
+                ]
+            },
+            {
+                "Label": "p3",
+                "Property": {
+                    "PredictorType": "MainTimeSeries",
+                    "CurveLabel": "p3",
+                    "ShiftStrategy": "Simple",
+                    "ShiftOffset": -3,
+                    "ShiftWeeklyPattern": false,
+                    "ShiftRegion": "2",
+                    "EnableVisualization": true
+                },
+                "Processors": [
+                    {
+                        "Action": "GapFilling",
+                        "Method": "LinearInterpolation",
+                        "HandleNansAtTheBeginning": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        },
+                        "HandleNansAtTheEnd": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        }
+                    }
+                ],
+                "Input": [
+                    "df2"
+                ]
+            },
+            {
+                "Label": "p4",
+                "Property": {
+                    "PredictorType": "MainTimeSeries",
+                    "CurveLabel": "p4",
+                    "ShiftStrategy": "Simple",
+                    "ShiftOffset": -4,
+                    "ShiftWeeklyPattern": false,
+                    "ShiftRegion": "2",
+                    "EnableVisualization": true
+                },
+                "Processors": [
+                    {
+                        "Action": "GapFilling",
+                        "Method": "LinearInterpolation",
+                        "HandleNansAtTheBeginning": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        },
+                        "HandleNansAtTheEnd": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        }
+                    }
+                ],
+                "Input": [
+                    "df2"
+                ]
+            },
+            {
+                "Label": "p5",
+                "Property": {
+                    "PredictorType": "MainTimeSeries",
+                    "CurveLabel": "p5",
+                    "ShiftStrategy": "Simple",
+                    "ShiftOffset": -5,
+                    "ShiftWeeklyPattern": false,
+                    "ShiftRegion": "2",
+                    "EnableVisualization": true
+                },
+                "Processors": [
+                    {
+                        "Action": "GapFilling",
+                        "Method": "LinearInterpolation",
+                        "HandleNansAtTheBeginning": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        },
+                        "HandleNansAtTheEnd": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        }
+                    }
+                ],
+                "Input": [
+                    "df2"
+                ]
+            },
+            {
+                "Label": "Target",
+                "Property": {
+                    "PredictorType": "MainTimeSeries",
+                    "CurveLabel": "Target",
+                    "OutputCurveName": "MarketData:Node,1096",
+                    "OutputCurvePhase": "119",
+                    "TargetType": "Value",
+                    "BinaryThreshold": null,
+                    "FillForwardStrategy": "UseForecastedValue",
+                    "EnableVisualization": true,
+                    "ForwardCurve": []
+                },
+                "Processors": [
+                    {
+                        "Action": "GapFilling",
+                        "Method": "LinearInterpolation",
+                        "HandleNansAtTheBeginning": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        },
+                        "HandleNansAtTheEnd": {
+                            "Method": "Drop",
+                            "CurvePhase": null
+                        }
+                    }
+                ],
+                "Input": []
+            }
+        ]
+    },
+    "ai": {
+        "model_structure": {
+            "class_name": "Model",
+            "config": {
+                "name": "model",
+                "layers": [
+                    {
+                        "name": "Input1",
+                        "class_name": "InputLayer",
+                        "type": "Deep",
+                        "layer": "Core Layers",
+                        "config": {
+                            "batch_input_shape": [],
+                            "dtype": "float32",
+                            "sparse": false,
+                            "name": "Input1"
+                        },
+                        "inbound_nodes": []
+                    },
+                    {
+                        "name": "Input",
+                        "class_name": "InputLayer",
+                        "type": "Deep",
+                        "layer": "Core Layers",
+                        "config": {
+                            "batch_input_shape": [],
+                            "dtype": "float32",
+                            "sparse": false,
+                            "name": "Input"
+                        },
+                        "inbound_nodes": []
+                    },
+                    {
+                        "name": "Dense3",
+                        "class_name": "Dense",
+                        "type": "Deep",
+                        "layer": "Core Layers",
+                        "config": {
+                            "name": "Dense3",
+                            "units": 1,
+                            "activation": "linear",
+                            "kernel_initializer": {
+                                "class_name": "RandomNormal",
+                                "config": {
+                                    "mean": 0,
+                                    "stddev": 0.05,
+                                    "seed": null
+                                }
+                            },
+                            "kernel_regularizer": {
+                                "class_name": "L1L2",
+                                "config": {
+                                    "l1": 0,
+                                    "l2": 0
+                                }
+                            }
+                        },
+                        "inbound_nodes": [
+                            [
+                                [
+                                    "concatenate",
+                                    0,
+                                    0
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "concatenate",
+                        "class_name": "Concatenate",
+                        "type": "Deep",
+                        "layer": "Merging Layers",
+                        "config": {
+                            "name": "concatenate",
+                            "trainable": true,
+                            "dtype": "float32",
+                            "axis": -1
+                        },
+                        "inbound_nodes": [
+                            [
+                                [
+                                    "LSTM2",
+                                    0,
+                                    0
+                                ],
+                                [
+                                    "LSTM",
+                                    0,
+                                    0
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "LSTM",
+                        "class_name": "LSTM",
+                        "type": "Deep",
+                        "layer": "Recurrent Layers",
+                        "config": {
+                            "name": "LSTM",
+                            "return_sequences": false,
+                            "units": 4,
+                            "activation": "relu",
+                            "recurrent_activation": "tanh",
+                            "kernel_initializer": {
+                                "class_name": "RandomNormal",
+                                "config": {
+                                    "mean": 0,
+                                    "stddev": 0.05,
+                                    "seed": null
+                                }
+                            },
+                            "recurrent_initializer": {
+                                "class_name": "RandomNormal",
+                                "config": {
+                                    "mean": 0,
+                                    "stddev": 0.05,
+                                    "seed": null
+                                }
+                            },
+                            "kernel_regularizer": {
+                                "class_name": "L1L2",
+                                "config": {
+                                    "l1": 0,
+                                    "l2": 0
+                                }
+                            },
+                            "recurrent_regularizer": {
+                                "class_name": "L1L2",
+                                "config": {
+                                    "l1": 0,
+                                    "l2": 0
+                                }
+                            },
+                            "recurrent_dropout": 0,
+                            "implementation": 2
+                        },
+                        "inbound_nodes": [
+                            [
+                                [
+                                    "Input1",
+                                    0,
+                                    0
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "LSTM2",
+                        "class_name": "LSTM",
+                        "type": "Deep",
+                        "layer": "Recurrent Layers",
+                        "config": {
+                            "name": "LSTM2",
+                            "return_sequences": false,
+                            "units": 4,
+                            "activation": "relu",
+                            "recurrent_activation": "tanh",
+                            "kernel_initializer": {
+                                "class_name": "RandomNormal",
+                                "config": {
+                                    "mean": 0,
+                                    "stddev": 0.05,
+                                    "seed": null
+                                }
+                            },
+                            "recurrent_initializer": {
+                                "class_name": "RandomNormal",
+                                "config": {
+                                    "mean": 0,
+                                    "stddev": 0.05,
+                                    "seed": null
+                                }
+                            },
+                            "kernel_regularizer": {
+                                "class_name": "L1L2",
+                                "config": {
+                                    "l1": 0,
+                                    "l2": 0
+                                }
+                            },
+                            "recurrent_regularizer": {
+                                "class_name": "L1L2",
+                                "config": {
+                                    "l1": 0,
+                                    "l2": 0
+                                }
+                            },
+                            "recurrent_dropout": 0,
+                            "implementation": 2
+                        },
+                        "inbound_nodes": [
+                            [
+                                [
+                                    "Input",
+                                    0,
+                                    0
+                                ]
+                            ]
+                        ]
+                    }
+                ],
+                "input_layers": [
+                    [
+                        "Input1",
+                        0,
+                        0
+                    ],
+                    [
+                        "Input",
+                        0,
+                        0
+                    ]
+                ],
+                "output_layers": [
+                    [
+                        "Dense3",
+                        0,
+                        0
+                    ]
+                ]
+            }
+        },
+        "model_config": {
+            "name": "deepModelGeneral",
+            "epoch": 10,
+            "batch_size": 32,
+            "training_function": "adam",
+            "loss_function": "mse",
+            "seed": 0,
+            "window_size": 1,
+            "shuffle": false,
+            "validation_split": 0,
+            "learning_rate": 0.001
+        },
+        "model_type": "Deep",
+        "Input_structure": [
+            {
+                "data_frame": {
+                    "Label": "df1",
+                    "window_size": 2
+                },
+                "inputs": [
+                    "Input1"
+                ]
+            },
+            {
+                "data_frame": {
+                    "Label": "df2",
+                    "window_size": 7
+                },
+                "inputs": [
+                    "Input"
+                ]
+            }
+        ]
+    }
+}
+}

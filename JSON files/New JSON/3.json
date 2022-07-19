@@ -1,0 +1,237 @@
+{
+	"config": {
+		"JobInformation": {
+			"TradingCalendar": "3",
+			"TimeZone": "257",
+			"ContinuousTraining": false,
+			"OperationalMode": "Real Time",
+			"OperationalSchedule": "Continuous",
+			"UsePreTrainedModel": false,
+			"useLevels": false,
+			"DataSource": "Static",
+			"JobType": "Regression",
+			"DataType": "TimeSeries",
+			"InputWindowSize": 1,
+			"OutputWindowSize": 1,
+			"Market": "2"
+		},
+		"DataProcessing": {
+			"MTSDefinition": {
+				"Curves": [
+					{
+						"CurveName": "MarketData:Node,1096",
+						"CurvePhase": "16",
+						"CurveGrain": "2",
+						"StartDate": "2021-05-15 00:00:00",
+						"EndDate": "2021-06-09 23:59:59"
+					}
+				],
+				"DateType": "absolute",
+				"Operation": "Merge"
+			},
+			"ExecutionInterval": {
+				"StartDate": "2021-06-10 00:00:00",
+				"EndDate": "2021-06-10 23:59:59",
+				"DateType": "absolute"
+			},
+			"CurveDetails": [
+				{
+					"Label": "price",
+					"Property": {
+						"PredictorType": "MainTimeSeries",
+						"CurveLabel": "price",
+						"ShiftStrategy": "Simple",
+						"ShiftOffset": -1,
+						"ShiftWeeklyPattern": false,
+						"ShiftRegion": "2",
+						"EnableVisualization": false
+					},
+					"Processors": [
+						{
+							"Action": "PredictorFunction",
+							"Method": "SMA",
+							"RearWindow": null,
+							"RearPoint": null
+						}
+					],
+					"Input": [
+						"Data Frame"
+					]
+				},
+				{
+					"Label": "load",
+					"Property": {
+						"PredictorType": "External",
+						"CurveLabel": "load",
+						"CurveName": "MarketData:Node,1096,Type,2",
+						"CurvePhase": "139",
+						"CurveGrain": "2",
+						"ShiftStrategy": "Simple",
+						"ShiftOffset": 0,
+						"ShiftRegion": "2",
+						"ShiftWeeklyPattern": null,
+						"ForwardCurve": null,
+						"FillForwardStrategy": "None",
+						"EnableVisualization": false
+					},
+					"Processors": [
+						{
+							"Action": "PredictorFunction",
+							"Method": "SMA",
+							"RearWindow": null,
+							"RearPoint": null
+						}
+					],
+					"Input": [
+						"Data Frame"
+					]
+				},
+				{
+					"Label": "Target",
+					"Property": {
+						"PredictorType": "MainTimeSeries",
+						"CurveLabel": "Target",
+						"OutputCurveName": "MarketData:Node,1096",
+						"OutputCurvePhase": "139",
+						"TargetType": "Value",
+						"BinaryThreshold": "",
+						"FillForwardStrategy": "UseForecastedValue",
+						"EnableVisualization": false,
+						"ForwardCurve": null
+					},
+					"Processors": [
+						{
+							"Action": "PredictorFunction",
+							"Method": "SMA",
+							"RearWindow": null,
+							"RearPoint": null
+						}
+					],
+					"Input": []
+				}
+			]
+		},
+		"ai": {
+			"model_structure": {
+				"class_name": "Model",
+				"config": {
+					"name": "model",
+					"layers": [
+						{
+							"name": "input",
+							"class_name": "InputLayer",
+							"config": {
+								"batch_input_shape": [],
+								"dtype": "float32",
+								"sparse": false,
+								"name": "input"
+							},
+							"inbound_nodes": []
+						},
+						{
+							"name": "Dense1",
+							"class_name": "Dense",
+							"config": {
+								"name": "Dense1",
+								"units": 5,
+								"activation": "relu",
+								"kernel_initializer": {
+									"class_name": "RandomNormal",
+									"config": {
+										"mean": 0,
+										"stddev": 0.05,
+										"seed": null
+									}
+								},
+								"kernel_regularizer": {
+									"class_name": "L1L2",
+									"config": {
+										"l1": 0,
+										"l2": 0
+									}
+								}
+							},
+							"inbound_nodes": [
+								[
+									[
+										"input",
+										0,
+										0
+									]
+								]
+							]
+						},
+						{
+							"name": "Dense2",
+							"class_name": "Dense",
+							"config": {
+								"name": "Dense2",
+								"units": 1,
+								"activation": "linear",
+								"kernel_initializer": {
+									"class_name": "RandomNormal",
+									"config": {
+										"mean": 0,
+										"stddev": 0.05,
+										"seed": null
+									}
+								},
+								"kernel_regularizer": {
+									"class_name": "L1L2",
+									"config": {
+										"l1": 0,
+										"l2": 0
+									}
+								}
+							},
+							"inbound_nodes": [
+								[
+									[
+										"Dense1",
+										0,
+										0
+									]
+								]
+							]
+						}
+					],
+					"input_layers": [
+						[
+							"input",
+							0,
+							0
+						]
+					],
+					"output_layers": [
+						[
+							"Dense2",
+							0,
+							0
+						]
+					]
+				}
+			},
+			"model_config": {
+				"name": "deepModelGeneral",
+				"epoch": 3,
+				"batch_size": 100,
+				"training_function": "adam",
+				"loss_function": "mse",
+				"seed": 0,
+				"window_size": 1,
+				"shuffle": false,
+				"validation_split": 0.1,
+				"learning_rate": 0.001
+			},
+			"model_type": "Deep",
+			"Input_structure": [
+				{
+					"data_frame": "Data Frame",
+					"inputs": [
+						"input"
+					]
+				}
+			]
+		}
+	}
+}

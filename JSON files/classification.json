@@ -1,0 +1,3492 @@
+{
+	"config": {
+		"JobInformation": {
+			"TradingCalendar": "3",
+			"TimeZone": "257",
+			"ContinuousTraining": false,
+			"OperationalMode": "Real Time",
+			"OperationalSchedule": "Continuous",
+			"UsePreTrainedModel": null,
+			"useLevels": null,
+			"DataSource": "Static",
+			"JobType": "Classification",
+			"DataType": "TimeSeries",
+			"Market": "1",
+			"InputWindowSize": 1
+		},
+		"DataProcessing": {
+			"MTSDefinition": {
+				"Curves": [
+					{
+						"CurveName": "MarketData:Node,1096",
+						"CurvePhase": "16",
+						"CurveGrain": "2",
+						"StartDate": "2021-05-15 00:00:00",
+						"EndDate": "2021-06-14 00:00:00"
+					}
+				],
+				"DateType": "absolute",
+				"Operation": "Merge"
+			},
+			"ExecutionInterval": {
+				"StartDate": "2021-06-15 00:00:00",
+				"EndDate": "2021-06-15 00:00:00",
+				"DateType": "absolute"
+			},
+			"CurveDetails": [
+				{
+					"Label": "Target",
+					"Property": {
+						"PredictorType": "External",
+						"CurveLabel": "Target",
+						"CurveName": "MarketData:Node,1096",
+						"CurveGrain": "2",
+						"CurvePhase": "16",
+						"OutputCurveNameOrdinal": "MarketData:Node,1096",
+						"OutputCurveNameRaw": [
+							{
+								"CurveName": "MarketData:Node,1096",
+								"CurvePhase": "140",
+								"CurveGrain": "2"
+							},
+							{
+								"CurveName": "MarketData:Node,1096",
+								"CurvePhase": "141",
+								"CurveGrain": "2"
+							}
+						],
+						"OutputCurvePhase": "142",
+						"EnableVisualization": true,
+						"ImbalanceMethod": {
+							"Method": "auto",
+							"sampling_strategy_oversampling": "auto",
+							"sampling_strategy_undersampling": "auto",
+							"random_state": null,
+							"k_neighbors": null,
+							"n_neighbors": null,
+							"m_neighbors": null
+						}
+					},
+					"Processors": [
+						{
+							"Action": "GapFilling",
+							"Method": "LinearInterpolation"
+						},
+						{
+							"Action": "Quantization",
+							"Method": "Binary",
+							"Threshold": 2000
+						}
+					],
+					"Input": []
+				},
+				{
+					"Label": "price",
+					"Property": {
+						"PredictorType": "MainTimeSeries",
+						"CurveLabel": "price",
+						"ShiftStrategy": "Simple",
+						"ShiftOffset": -1,
+						"ShiftWeeklyPattern": false,
+						"ShiftRegion": "2",
+						"EnableVisualization": true
+					},
+					"Processors": [],
+					"Input": [
+						"Data Frame"
+					]
+				},
+				{
+					"Label": "load",
+					"Property": {
+						"PredictorType": "External",
+						"CurveLabel": "load",
+						"CurveName": "MarketData:Node,1096,Type,2",
+						"CurvePhase": "27",
+						"CurveGrain": "2",
+						"ShiftStrategy": "Simple",
+						"ShiftOffset": 0,
+						"ShiftRegion": "2",
+						"ShiftWeeklyPattern": null,
+						"ForwardCurve": [],
+						"FillForwardStrategy": "None",
+						"EnableVisualization": true
+					},
+					"Processors": [],
+					"Input": [
+						"Data Frame"
+					]
+				}
+			]
+		},
+		"ai": {
+			"draw2dStructure": [
+				{
+					"type": "TooltipFigure",
+					"id": "b9d83d0c-03d3-4a7f-a26e-07dfba665ab2",
+					"x": 20,
+					"y": 20,
+					"width": 85.25,
+					"height": 43,
+					"alpha": 1,
+					"selectable": false,
+					"draggable": false,
+					"angle": 0,
+					"userData": {
+						"layout": [
+							{
+								"name": "name",
+								"data": {
+									"type": "text",
+									"default": "",
+									"help": "Name of the Data Frame, use names without whitespace, instead of whitespace use underscore.\nWe recommended to keep the system provided default names for consitency. The name should just consist of lower and upper case letters and numbers without whitespace.\nThese are valid names: Input, InputLayer, inputLayer \nNote that Layer's name should be UNIQUE.",
+									"url": "",
+									"regex": "",
+									"label": "Name",
+									"dependsOn": "",
+									"dependState": []
+								}
+							}
+						],
+						"data": {
+							"name": "DataFrame",
+							"class_name": "DataFrame",
+							"config": {
+								"batch_input_shape": [],
+								"dtype": "float32",
+								"sparse": false,
+								"name": "DataFrame"
+							},
+							"inbound_nodes": []
+						},
+						"id": "b9d83d0c-03d3-4a7f-a26e-07dfba665ab2",
+						"type": "DataFrame"
+					},
+					"cssClass": "labelModel",
+					"ports": [
+						{
+							"type": "draw2d.OutputPort",
+							"id": "f4ed4974-6e61-4af8-a556-0dc17904cb4d",
+							"width": 10,
+							"height": 10,
+							"alpha": 1,
+							"selectable": false,
+							"draggable": true,
+							"angle": 0,
+							"userData": {},
+							"cssClass": "draw2d_OutputPort",
+							"bgColor": "rgba(79,104,112,1)",
+							"color": "rgba(27,27,27,1)",
+							"stroke": 1,
+							"dasharray": null,
+							"maxFanOut": 100,
+							"name": "output",
+							"semanticGroup": "global",
+							"port": "draw2d.OutputPort",
+							"locator": "draw2d.layout.locator.OutputPortLocator",
+							"locatorAttr": {}
+						}
+					],
+					"bgColor": "rgba(255,255,255,1)",
+					"color": "rgba(0,0,0,1)",
+					"stroke": 1,
+					"radius": 5,
+					"dasharray": null,
+					"text": "Data Frame",
+					"outlineStroke": 0,
+					"outlineColor": "rgba(0,0,0,0)",
+					"fontSize": 12,
+					"fontColor": "rgba(0,0,0,1)",
+					"fontFamily": null
+				},
+				{
+					"type": "TooltipFigure",
+					"id": "6903d14c-aa18-4a30-9b96-a19d5e69a3f1",
+					"x": 400,
+					"y": 150,
+					"width": 91,
+					"height": 43,
+					"alpha": 1,
+					"selectable": true,
+					"draggable": true,
+					"angle": 0,
+					"userData": {
+						"layout": [
+							{
+								"name": "criterion",
+								"data": {
+									"type": "enum",
+									"values": [
+										{
+											"id": 0,
+											"name": "mse",
+											"value": "mse"
+										},
+										{
+											"id": 1,
+											"name": "friedman_mse",
+											"value": "friedman_mse"
+										},
+										{
+											"id": 2,
+											"name": "mae",
+											"value": "mae"
+										}
+									],
+									"default": "mse",
+									"help": "The metric upon which the tree is basing it branching decisions.  We recommend to use “MAE (mean absolute error)“ when forecasting high volatility prices, and “MSE (mean squared error)“ when forecasting better behaved load  data.",
+									"url": "",
+									"regex": "",
+									"label": "Criterion",
+									"dependsOn": "",
+									"dependState": []
+								}
+							},
+							{
+								"name": "max_depth",
+								"data": {
+									"type": "int",
+									"default": null,
+									"help": "Maximum Depth the tree can have. Number of conditions in the decision tree grows exponentially with this value. For load forecasting we recommended the value 6, and for price forecasting the value 8. Higher values for this tab result in complexity of the model and overfitting.",
+									"url": "",
+									"regex": "",
+									"label": "Max Depth",
+									"dependsOn": "",
+									"dependState": []
+								}
+							},
+							{
+								"name": "min_samples_split",
+								"data": {
+									"type": "float",
+									"default": 2,
+									"help": "Minimum number of sample data required to add a splitting condition or tree branch. If this is an integer (e.g., 2) it will be the absolute number of samples. If this is a decimal (e.g., 0.2) it be considered as a percent of the data, e.g, 20%.\n \nRecommended value is 2. A value higher than 2, or a decimal value (0.2) will cause the model to ignore some specific rules, and should be used only when you need less complex model.",
+									"url": "",
+									"regex": "",
+									"label": "Min Samples Split",
+									"dependsOn": "",
+									"dependState": []
+								}
+							},
+							{
+								"name": "min_samples_leaf",
+								"data": {
+									"type": "float",
+									"default": 1,
+									"help": "Minimum number of sample data at a leaf node level.  If this is an integer number (e.g., 1), it will be treated as an absolute number of sample data, and if a decimal (e.g., 0.2), it is considered as a percent of the data, e.g., 20%.\n \nIt is recommended to use the default value 1. Higher numbers (or large percentages than 0.2) will increase the model's generality and lower its complexity. ",
+									"url": "",
+									"regex": "",
+									"label": "Min Samples Leaf",
+									"dependsOn": "",
+									"dependState": []
+								}
+							},
+							{
+								"name": "max_features",
+								"data": {
+									"type": "float",
+									"default": null,
+									"help": "Number of features to consider when creating conditions for the best split. We recommend not to choose a large value. Typical range is between 1 and the number of predictors and indicators chosen in the data tab, e.g, 3 to 5.",
+									"url": "",
+									"regex": "",
+									"label": "Max Features",
+									"dependsOn": "",
+									"dependState": []
+								}
+							},
+							{
+								"name": "min_impurity_split",
+								"data": {
+									"type": "float",
+									"default": null,
+									"help": "Threshold for early stopping in tree growth. A node will split if its impurity is above the threshold, otherwise it is a leaf. Typical value = 0.",
+									"url": "",
+									"regex": "",
+									"label": "Min Impurity Split",
+									"dependsOn": "",
+									"dependState": []
+								}
+							}
+						],
+						"data": {
+							"name": "DecisionTree",
+							"type": "DecisionTree",
+							"config": {
+								"criterion": "mse",
+								"max_depth": null,
+								"min_samples_split": 2,
+								"min_samples_leaf": 1,
+								"max_features": null,
+								"min_impurity_split": 0
+							}
+						},
+						"id": "6903d14c-aa18-4a30-9b96-a19d5e69a3f1",
+						"type": "Ai",
+						"model": {
+							"title": "DecisionTree",
+							"layout": [
+								{
+									"name": "criterion",
+									"data": {
+										"type": "enum",
+										"values": [
+											{
+												"id": 0,
+												"name": "mse",
+												"value": "mse"
+											},
+											{
+												"id": 1,
+												"name": "friedman_mse",
+												"value": "friedman_mse"
+											},
+											{
+												"id": 2,
+												"name": "mae",
+												"value": "mae"
+											}
+										],
+										"default": "mse",
+										"help": "The metric upon which the tree is basing it branching decisions.  We recommend to use “MAE (mean absolute error)“ when forecasting high volatility prices, and “MSE (mean squared error)“ when forecasting better behaved load  data.",
+										"url": "",
+										"regex": "",
+										"label": "Criterion",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "max_depth",
+									"data": {
+										"type": "int",
+										"default": null,
+										"help": "Maximum Depth the tree can have. Number of conditions in the decision tree grows exponentially with this value. For load forecasting we recommended the value 6, and for price forecasting the value 8. Higher values for this tab result in complexity of the model and overfitting.",
+										"url": "",
+										"regex": "",
+										"label": "Max Depth",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "min_samples_split",
+									"data": {
+										"type": "float",
+										"default": 2,
+										"help": "Minimum number of sample data required to add a splitting condition or tree branch. If this is an integer (e.g., 2) it will be the absolute number of samples. If this is a decimal (e.g., 0.2) it be considered as a percent of the data, e.g, 20%.\n \nRecommended value is 2. A value higher than 2, or a decimal value (0.2) will cause the model to ignore some specific rules, and should be used only when you need less complex model.",
+										"url": "",
+										"regex": "",
+										"label": "Min Samples Split",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "min_samples_leaf",
+									"data": {
+										"type": "float",
+										"default": 1,
+										"help": "Minimum number of sample data at a leaf node level.  If this is an integer number (e.g., 1), it will be treated as an absolute number of sample data, and if a decimal (e.g., 0.2), it is considered as a percent of the data, e.g., 20%.\n \nIt is recommended to use the default value 1. Higher numbers (or large percentages than 0.2) will increase the model's generality and lower its complexity. ",
+										"url": "",
+										"regex": "",
+										"label": "Min Samples Leaf",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "max_features",
+									"data": {
+										"type": "float",
+										"default": null,
+										"help": "Number of features to consider when creating conditions for the best split. We recommend not to choose a large value. Typical range is between 1 and the number of predictors and indicators chosen in the data tab, e.g, 3 to 5.",
+										"url": "",
+										"regex": "",
+										"label": "Max Features",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "min_impurity_split",
+									"data": {
+										"type": "float",
+										"default": null,
+										"help": "Threshold for early stopping in tree growth. A node will split if its impurity is above the threshold, otherwise it is a leaf. Typical value = 0.",
+										"url": "",
+										"regex": "",
+										"label": "Min Impurity Split",
+										"dependsOn": "",
+										"dependState": []
+									}
+								}
+							],
+							"data": {
+								"multiple": false
+							},
+							"color": "#7E57C2"
+						}
+					},
+					"cssClass": "labelModel",
+					"ports": [
+						{
+							"type": "draw2d.InputPort",
+							"id": "91fdf4b8-e2fa-4fc9-8c53-81ee5191a9a1",
+							"width": 10,
+							"height": 10,
+							"alpha": 1,
+							"selectable": false,
+							"draggable": true,
+							"angle": 0,
+							"userData": {},
+							"cssClass": "draw2d_InputPort",
+							"bgColor": "rgba(79,104,112,1)",
+							"color": "rgba(27,27,27,1)",
+							"stroke": 1,
+							"dasharray": null,
+							"maxFanOut": 1,
+							"name": "input0",
+							"semanticGroup": "global",
+							"port": "draw2d.InputPort",
+							"locator": "draw2d.layout.locator.InputPortLocator",
+							"locatorAttr": {}
+						}
+					],
+					"bgColor": "rgba(255,255,255,1)",
+					"color": "rgba(0,0,0,1)",
+					"stroke": 1,
+					"radius": 5,
+					"dasharray": null,
+					"text": "DecisionTree",
+					"outlineStroke": 0,
+					"outlineColor": "rgba(0,0,0,0)",
+					"fontSize": 12,
+					"fontColor": "rgba(0,0,0,1)",
+					"fontFamily": null
+				},
+				{
+					"type": "draw2d.Connection",
+					"id": "d2a84396-dedc-cf05-1c37-1c02f0f43df5",
+					"alpha": 1,
+					"selectable": true,
+					"draggable": true,
+					"angle": 0,
+					"userData": {},
+					"cssClass": "draw2d_Connection",
+					"stroke": 2,
+					"color": "rgba(18,156,228,1)",
+					"outlineStroke": 0,
+					"outlineColor": "rgba(0,0,0,0)",
+					"policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+					"vertex": [
+						{
+							"x": 115.6875,
+							"y": 43
+						},
+						{
+							"x": 257.84375,
+							"y": 43
+						},
+						{
+							"x": 257.84375,
+							"y": 173
+						},
+						{
+							"x": 400,
+							"y": 173
+						}
+					],
+					"router": "draw2d.layout.connection.ManhattanBridgedConnectionRouter",
+					"radius": 3,
+					"source": {
+						"node": "b9d83d0c-03d3-4a7f-a26e-07dfba665ab2",
+						"port": "output"
+					},
+					"target": {
+						"node": "6903d14c-aa18-4a30-9b96-a19d5e69a3f1",
+						"port": "input0",
+						"decoration": "draw2d.decoration.connection.ArrowDecorator"
+					}
+				}
+			],
+			"model_structure": {
+				"criterion": "mse",
+				"max_depth": null,
+				"min_samples_split": 2,
+				"min_samples_leaf": 1,
+				"max_features": null,
+				"min_impurity_split": 0
+			},
+			"model_config": null,
+			"model_type": "DecisionTree",
+			"Input_structure": [
+				{
+					"data_frame": "Data Frame",
+					"inputs": [
+						"DecisionTree"
+					]
+				}
+			]
+		},
+		"ui": {
+			"name": "KananTestClass2",
+			"TradingCalendar": "3",
+			"TimeZone": "257",
+			"OperationalMode": "Real Time",
+			"InputWindowSize": 1,
+			"company": null,
+			"Market": "1",
+			"OperationalSchedule": "Continuous",
+			"description": null,
+			"ContinuousTraining": false,
+			"UsePreTrainedModel": null,
+			"useLevels": null,
+			"JobType": "Classification",
+			"DataType": "TimeSeries",
+			"DataSource": "Static",
+			"JobAction": 33,
+			"DateTypeMTS": "absolute",
+			"MainTimeSeries": [
+				{
+					"CurveName": "MarketData:Node,1096",
+					"CurvePhase": "16",
+					"CurveGrain": "2",
+					"StartOffset": null,
+					"StartRegion": null,
+					"EndOffset": null,
+					"EndRegion": null,
+					"StartDate": "2021-05-15T00:00:00.000Z",
+					"StartTime": null,
+					"EndDate": "2021-06-14T00:00:00.000Z",
+					"EndTime": null
+				}
+			],
+			"DateType": "absolute",
+			"StartDate": "2021-06-15T00:00:00.000Z",
+			"StartTime": "00:00",
+			"EndDate": "2021-06-15T00:00:00.000Z",
+			"EndTime": "00:00",
+			"StartOffset": null,
+			"StartRegion": 0,
+			"EndOffset": null,
+			"EndRegion": null,
+			"CurveDetails": {
+				"CurveDetails": [
+					{
+						"Label": "Target",
+						"Property": {
+							"PredictorType": "External",
+							"CurveLabel": "Target",
+							"CurveName": "MarketData:Node,1096",
+							"CurveGrain": "2",
+							"CurvePhase": "16",
+							"OutputCurveNameOrdinal": "MarketData:Node,1096",
+							"OutputCurveNameRaw": [
+								{
+									"CurveName": "MarketData:Node,1096",
+									"CurvePhase": "140",
+									"CurveGrain": "2"
+								},
+								{
+									"CurveName": "MarketData:Node,1096",
+									"CurvePhase": "141",
+									"CurveGrain": "2"
+								}
+							],
+							"OutputCurvePhase": "142",
+							"EnableVisualization": true,
+							"ImbalanceMethod": {
+								"Method": "auto",
+								"sampling_strategy_oversampling": "auto",
+								"sampling_strategy_undersampling": "auto",
+								"random_state": null,
+								"k_neighbors": null,
+								"n_neighbors": null,
+								"m_neighbors": null
+							}
+						},
+						"Processors": [
+							{
+								"Action": "GapFilling",
+								"Method": "LinearInterpolation"
+							},
+							{
+								"Action": "Quantization",
+								"Method": "Binary",
+								"Threshold": 2000
+							}
+						],
+						"Input": []
+					},
+					{
+						"Label": "price",
+						"Property": {
+							"PredictorType": "MainTimeSeries",
+							"CurveLabel": "price",
+							"ShiftStrategy": "Simple",
+							"ShiftOffset": -1,
+							"ShiftWeeklyPattern": false,
+							"ShiftRegion": "2",
+							"EnableVisualization": true
+						},
+						"Processors": [],
+						"Input": [
+							"Data Frame"
+						]
+					},
+					{
+						"Label": "load",
+						"Property": {
+							"PredictorType": "External",
+							"CurveLabel": "load",
+							"CurveName": "MarketData:Node,1096,Type,2",
+							"CurvePhase": "27",
+							"CurveGrain": "2",
+							"ShiftStrategy": "Simple",
+							"ShiftOffset": 0,
+							"ShiftRegion": "2",
+							"ShiftWeeklyPattern": null,
+							"ForwardCurve": [],
+							"FillForwardStrategy": "None",
+							"EnableVisualization": true
+						},
+						"Processors": [],
+						"Input": [
+							"Data Frame"
+						]
+					}
+				],
+				"draw2dStructure": [
+					{
+						"type": "TooltipFigure",
+						"id": "9055ca7b-a89e-42ef-ba4b-438913bc79cb",
+						"x": 0,
+						"y": 150,
+						"width": 108.828125,
+						"height": 43,
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {
+							"layout": [
+								{
+									"name": "PredictorType",
+									"data": {
+										"type": "hidden",
+										"default": "MainTimeSeries",
+										"placeHolder": "",
+										"help": " ",
+										"url": "",
+										"regex": "",
+										"label": "Predictor Type",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "CurveLabel",
+									"data": {
+										"type": "text",
+										"default": null,
+										"placeHolder": "",
+										"help": " ",
+										"url": "",
+										"regex": "",
+										"label": "Curve Label",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "ShiftStrategy",
+									"data": {
+										"type": "enum",
+										"values": [
+											{
+												"id": 0,
+												"name": "Simple",
+												"value": "Simple"
+											},
+											{
+												"id": 1,
+												"name": "Enhanced",
+												"value": "Enhanced"
+											}
+										],
+										"default": null,
+										"help": "",
+										"url": "",
+										"regex": "",
+										"label": "Shift Strategy",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "ShiftOffset",
+									"data": {
+										"type": "int",
+										"default": null,
+										"label": "Shift Offset",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "ShiftWeeklyPattern",
+									"data": {
+										"type": "bool",
+										"default": false,
+										"help": "",
+										"url": "",
+										"regex": "",
+										"label": "Apply Shift Based On Weekly Pattern",
+										"dependsOn": "ShiftStrategy",
+										"dependState": [
+											"Enhanced"
+										],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "ShiftRegion",
+									"data": {
+										"type": "enum",
+										"default": null,
+										"url": {
+											"url": "/etrm-rest-api/job-ui/curve-grain"
+										},
+										"label": "Shift Region",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "EnableVisualization",
+									"data": {
+										"type": "bool",
+										"default": true,
+										"help": "",
+										"url": "",
+										"regex": "",
+										"label": "Enable Visualization",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								}
+							],
+							"data": {
+								"PredictorType": "MainTimeSeries",
+								"CurveLabel": "price",
+								"ShiftStrategy": "Simple",
+								"ShiftOffset": -1,
+								"ShiftWeeklyPattern": false,
+								"ShiftRegion": "2",
+								"EnableVisualization": true
+							},
+							"id": "9055ca7b-a89e-42ef-ba4b-438913bc79cb",
+							"model": {
+								"name": "Internal Predictor",
+								"layout": [
+									{
+										"name": "PredictorType",
+										"data": {
+											"type": "hidden",
+											"default": "MainTimeSeries",
+											"placeHolder": "",
+											"help": " ",
+											"url": "",
+											"regex": "",
+											"label": "Predictor Type",
+											"dependsOn": "",
+											"dependState": []
+										}
+									},
+									{
+										"name": "CurveLabel",
+										"data": {
+											"type": "text",
+											"default": null,
+											"placeHolder": "",
+											"help": " ",
+											"url": "",
+											"regex": "",
+											"label": "Curve Label",
+											"dependsOn": "",
+											"dependState": []
+										}
+									},
+									{
+										"name": "ShiftStrategy",
+										"data": {
+											"type": "enum",
+											"values": [
+												{
+													"id": 0,
+													"name": "Simple",
+													"value": "Simple"
+												},
+												{
+													"id": 1,
+													"name": "Enhanced",
+													"value": "Enhanced"
+												}
+											],
+											"default": null,
+											"help": "",
+											"url": "",
+											"regex": "",
+											"label": "Shift Strategy",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "ShiftOffset",
+										"data": {
+											"type": "int",
+											"default": null,
+											"label": "Shift Offset",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "ShiftWeeklyPattern",
+										"data": {
+											"type": "bool",
+											"default": false,
+											"help": "",
+											"url": "",
+											"regex": "",
+											"label": "Apply Shift Based On Weekly Pattern",
+											"dependsOn": "ShiftStrategy",
+											"dependState": [
+												"Enhanced"
+											],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "ShiftRegion",
+										"data": {
+											"type": "enum",
+											"default": null,
+											"url": {
+												"url": "/etrm-rest-api/job-ui/curve-grain"
+											},
+											"label": "Shift Region",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "EnableVisualization",
+										"data": {
+											"type": "bool",
+											"default": true,
+											"help": "",
+											"url": "",
+											"regex": "",
+											"label": "Enable Visualization",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									}
+								],
+								"type": "Curves",
+								"outputFan": 10
+							},
+							"type": "Curves"
+						},
+						"cssClass": "labelModel",
+						"ports": [
+							{
+								"type": "draw2d.OutputPort",
+								"id": "9055ca7b-a89e-42ef-ba4b-438913bc79cbCurves",
+								"width": 10,
+								"height": 10,
+								"alpha": 1,
+								"selectable": false,
+								"draggable": true,
+								"angle": 0,
+								"userData": {},
+								"cssClass": "draw2d_OutputPort",
+								"bgColor": "rgba(79,104,112,1)",
+								"color": "rgba(27,27,27,1)",
+								"stroke": 1,
+								"dasharray": null,
+								"maxFanOut": 10,
+								"name": "output",
+								"semanticGroup": "global",
+								"port": "draw2d.OutputPort",
+								"locator": "draw2d.layout.locator.OutputPortLocator",
+								"locatorAttr": {}
+							}
+						],
+						"bgColor": "rgba(255,255,255,1)",
+						"color": "rgba(0,0,0,1)",
+						"stroke": 1,
+						"radius": 5,
+						"dasharray": null,
+						"text": "price",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"fontSize": 12,
+						"fontColor": "rgba(0,0,0,1)",
+						"fontFamily": null
+					},
+					{
+						"type": "TooltipFigure",
+						"id": "6f5e0e1d-d9bc-4f1a-b448-676fe7e2f008",
+						"x": 0,
+						"y": 225,
+						"width": 112.171875,
+						"height": 43,
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {
+							"layout": [
+								{
+									"name": "PredictorType",
+									"data": {
+										"type": "hidden",
+										"default": "External",
+										"placeHolder": "",
+										"help": "",
+										"url": "",
+										"regex": "",
+										"label": "Predictor Type",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "CurveLabel",
+									"data": {
+										"type": "text",
+										"default": null,
+										"placeHolder": "",
+										"help": " ",
+										"url": "",
+										"regex": "",
+										"label": "Curve Label",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "CurveName",
+									"data": {
+										"type": "curveName-v2",
+										"values": [],
+										"default": null,
+										"label": "Curve Name",
+										"url": {
+											"userReadable": "/etrm-rest-api/curve-name-reader/get",
+											"servlet": "/Trading/DealCapture/backoffice/CurveNameCreatorPage.jsp"
+										},
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "CurvePhase",
+									"data": {
+										"type": "enum",
+										"values": [],
+										"default": null,
+										"help": "Specify the phase of the data curve that the AI model will use for training, indicators or output data.",
+										"url": {
+											"url": "/etrm-rest-api/job-ui/curve-phase"
+										},
+										"label": "Curve Phase",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "CurveGrain",
+									"data": {
+										"type": "enum",
+										"default": null,
+										"help": "Curve granularity or timescale of the data, e.g. 5, 15, 30 minutes, hourly etc.",
+										"url": {
+											"url": "/etrm-rest-api/job-ui/curve-grain"
+										},
+										"label": "Curve Grain",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "ShiftStrategy",
+									"data": {
+										"type": "enum",
+										"default": null,
+										"help": "Specify the phase of the data curve that the AI model will use for training, indicators or output data.",
+										"values": [
+											{
+												"id": 0,
+												"name": "Simple",
+												"value": "Simple"
+											},
+											{
+												"id": 1,
+												"name": "Enhanced",
+												"value": "Enhanced"
+											}
+										],
+										"label": "Shift Strategy",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "ShiftOffset",
+									"data": {
+										"type": "int",
+										"default": null,
+										"placeHolder": "",
+										"help": " ",
+										"url": "",
+										"regex": "",
+										"label": "Shift Offset",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "ShiftRegion",
+									"data": {
+										"type": "enum",
+										"default": null,
+										"url": {
+											"url": "/etrm-rest-api/job-ui/curve-grain"
+										},
+										"label": "Shift Region",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "ShiftWeeklyPattern",
+									"data": {
+										"type": "bool",
+										"default": null,
+										"help": "",
+										"url": "",
+										"regex": "",
+										"label": "Apply Shift Based On Weekly Pattern",
+										"dependsOn": "ShiftStrategy",
+										"dependState": [
+											"Enhanced"
+										],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "ForwardCurve",
+									"data": {
+										"type": "list",
+										"values": [
+											{
+												"column": "CurveName",
+												"data": {
+													"type": "curveName-v2",
+													"values": [],
+													"default": null,
+													"width": 50,
+													"label": "Curve Name",
+													"url": {
+														"userReadable": "/etrm-rest-api/curve-name-reader/get",
+														"servlet": "/Trading/DealCapture/backoffice/CurveNameCreatorPage.jsp"
+													},
+													"dependsOn": "",
+													"dependState": [],
+													"placeHolder": ""
+												}
+											},
+											{
+												"column": "CurvePhase",
+												"data": {
+													"type": "enum",
+													"width": 30,
+													"values": [],
+													"default": null,
+													"help": "Specify the phase of the data curve that the AI model will use for training, indicators or output data.",
+													"url": {
+														"url": "/etrm-rest-api/job-ui/curve-phase"
+													},
+													"label": "Curve Phase",
+													"dependsOn": "",
+													"dependState": [],
+													"placeHolder": ""
+												}
+											},
+											{
+												"column": "CurveGrain",
+												"data": {
+													"type": "enum",
+													"width": 30,
+													"default": null,
+													"help": "Curve granularity or timescale of the data, e.g. 5, 15, 30 minutes, hourly etc.",
+													"url": {
+														"url": "/etrm-rest-api/job-ui/curve-grain"
+													},
+													"label": "Curve Grain",
+													"dependsOn": "",
+													"dependState": [],
+													"placeHolder": ""
+												}
+											}
+										],
+										"label": "Forward Curve",
+										"static": true,
+										"default": [],
+										"rows": 1,
+										"dependsOn": "FillForwardStrategy",
+										"dependState": [
+											"UseForwardCurve"
+										]
+									}
+								},
+								{
+									"name": "FillForwardStrategy",
+									"data": {
+										"type": "enum",
+										"default": null,
+										"values": [
+											{
+												"id": 0,
+												"name": "None",
+												"value": "None"
+											},
+											{
+												"id": 1,
+												"name": "PDSH",
+												"value": "PDSH"
+											},
+											{
+												"id": 2,
+												"name": "Daily Average",
+												"value": "DailyAverage"
+											},
+											{
+												"id": 3,
+												"name": "Duplicate Last",
+												"value": "DuplicateLast"
+											},
+											{
+												"id": 4,
+												"name": "Use Forward Curve",
+												"value": "UseForwardCurve"
+											}
+										],
+										"label": "Fill Forward Strategy",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "EnableVisualization",
+									"data": {
+										"type": "bool",
+										"default": true,
+										"help": "",
+										"url": "",
+										"regex": "",
+										"label": "Enable Visualization",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								}
+							],
+							"data": {
+								"PredictorType": "External",
+								"CurveLabel": "load",
+								"CurveName": "MarketData:Node,1096,Type,2",
+								"CurvePhase": "27",
+								"CurveGrain": "2",
+								"ShiftStrategy": "Simple",
+								"ShiftOffset": 0,
+								"ShiftRegion": "2",
+								"ShiftWeeklyPattern": null,
+								"ForwardCurve": [],
+								"FillForwardStrategy": "None",
+								"EnableVisualization": true
+							},
+							"id": "6f5e0e1d-d9bc-4f1a-b448-676fe7e2f008",
+							"model": {
+								"name": "External Predictor",
+								"layout": [
+									{
+										"name": "PredictorType",
+										"data": {
+											"type": "hidden",
+											"default": "External",
+											"placeHolder": "",
+											"help": "",
+											"url": "",
+											"regex": "",
+											"label": "Predictor Type",
+											"dependsOn": "",
+											"dependState": []
+										}
+									},
+									{
+										"name": "CurveLabel",
+										"data": {
+											"type": "text",
+											"default": null,
+											"placeHolder": "",
+											"help": " ",
+											"url": "",
+											"regex": "",
+											"label": "Curve Label",
+											"dependsOn": "",
+											"dependState": []
+										}
+									},
+									{
+										"name": "CurveName",
+										"data": {
+											"type": "curveName-v2",
+											"values": [],
+											"default": null,
+											"label": "Curve Name",
+											"url": {
+												"userReadable": "/etrm-rest-api/curve-name-reader/get",
+												"servlet": "/Trading/DealCapture/backoffice/CurveNameCreatorPage.jsp"
+											},
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "CurvePhase",
+										"data": {
+											"type": "enum",
+											"values": [],
+											"default": null,
+											"help": "Specify the phase of the data curve that the AI model will use for training, indicators or output data.",
+											"url": {
+												"url": "/etrm-rest-api/job-ui/curve-phase"
+											},
+											"label": "Curve Phase",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "CurveGrain",
+										"data": {
+											"type": "enum",
+											"default": null,
+											"help": "Curve granularity or timescale of the data, e.g. 5, 15, 30 minutes, hourly etc.",
+											"url": {
+												"url": "/etrm-rest-api/job-ui/curve-grain"
+											},
+											"label": "Curve Grain",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "ShiftStrategy",
+										"data": {
+											"type": "enum",
+											"default": null,
+											"help": "Specify the phase of the data curve that the AI model will use for training, indicators or output data.",
+											"values": [
+												{
+													"id": 0,
+													"name": "Simple",
+													"value": "Simple"
+												},
+												{
+													"id": 1,
+													"name": "Enhanced",
+													"value": "Enhanced"
+												}
+											],
+											"label": "Shift Strategy",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "ShiftOffset",
+										"data": {
+											"type": "int",
+											"default": null,
+											"placeHolder": "",
+											"help": " ",
+											"url": "",
+											"regex": "",
+											"label": "Shift Offset",
+											"dependsOn": "",
+											"dependState": []
+										}
+									},
+									{
+										"name": "ShiftRegion",
+										"data": {
+											"type": "enum",
+											"default": null,
+											"url": {
+												"url": "/etrm-rest-api/job-ui/curve-grain"
+											},
+											"label": "Shift Region",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "ShiftWeeklyPattern",
+										"data": {
+											"type": "bool",
+											"default": null,
+											"help": "",
+											"url": "",
+											"regex": "",
+											"label": "Apply Shift Based On Weekly Pattern",
+											"dependsOn": "ShiftStrategy",
+											"dependState": [
+												"Enhanced"
+											],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "ForwardCurve",
+										"data": {
+											"type": "list",
+											"values": [
+												{
+													"column": "CurveName",
+													"data": {
+														"type": "curveName-v2",
+														"values": [],
+														"default": null,
+														"width": 50,
+														"label": "Curve Name",
+														"url": {
+															"userReadable": "/etrm-rest-api/curve-name-reader/get",
+															"servlet": "/Trading/DealCapture/backoffice/CurveNameCreatorPage.jsp"
+														},
+														"dependsOn": "",
+														"dependState": [],
+														"placeHolder": ""
+													}
+												},
+												{
+													"column": "CurvePhase",
+													"data": {
+														"type": "enum",
+														"width": 30,
+														"values": [],
+														"default": null,
+														"help": "Specify the phase of the data curve that the AI model will use for training, indicators or output data.",
+														"url": {
+															"url": "/etrm-rest-api/job-ui/curve-phase"
+														},
+														"label": "Curve Phase",
+														"dependsOn": "",
+														"dependState": [],
+														"placeHolder": ""
+													}
+												},
+												{
+													"column": "CurveGrain",
+													"data": {
+														"type": "enum",
+														"width": 30,
+														"default": null,
+														"help": "Curve granularity or timescale of the data, e.g. 5, 15, 30 minutes, hourly etc.",
+														"url": {
+															"url": "/etrm-rest-api/job-ui/curve-grain"
+														},
+														"label": "Curve Grain",
+														"dependsOn": "",
+														"dependState": [],
+														"placeHolder": ""
+													}
+												}
+											],
+											"label": "Forward Curve",
+											"static": true,
+											"default": [],
+											"rows": 1,
+											"dependsOn": "FillForwardStrategy",
+											"dependState": [
+												"UseForwardCurve"
+											]
+										}
+									},
+									{
+										"name": "FillForwardStrategy",
+										"data": {
+											"type": "enum",
+											"default": null,
+											"values": [
+												{
+													"id": 0,
+													"name": "None",
+													"value": "None"
+												},
+												{
+													"id": 1,
+													"name": "PDSH",
+													"value": "PDSH"
+												},
+												{
+													"id": 2,
+													"name": "Daily Average",
+													"value": "DailyAverage"
+												},
+												{
+													"id": 3,
+													"name": "Duplicate Last",
+													"value": "DuplicateLast"
+												},
+												{
+													"id": 4,
+													"name": "Use Forward Curve",
+													"value": "UseForwardCurve"
+												}
+											],
+											"label": "Fill Forward Strategy",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "EnableVisualization",
+										"data": {
+											"type": "bool",
+											"default": true,
+											"help": "",
+											"url": "",
+											"regex": "",
+											"label": "Enable Visualization",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									}
+								],
+								"type": "Curves",
+								"outputFan": 10
+							},
+							"type": "Curves"
+						},
+						"cssClass": "labelModel",
+						"ports": [
+							{
+								"type": "draw2d.OutputPort",
+								"id": "6f5e0e1d-d9bc-4f1a-b448-676fe7e2f008Curves",
+								"width": 10,
+								"height": 10,
+								"alpha": 1,
+								"selectable": false,
+								"draggable": true,
+								"angle": 0,
+								"userData": {},
+								"cssClass": "draw2d_OutputPort",
+								"bgColor": "rgba(79,104,112,1)",
+								"color": "rgba(27,27,27,1)",
+								"stroke": 1,
+								"dasharray": null,
+								"maxFanOut": 10,
+								"name": "output",
+								"semanticGroup": "global",
+								"port": "draw2d.OutputPort",
+								"locator": "draw2d.layout.locator.OutputPortLocator",
+								"locatorAttr": {}
+							}
+						],
+						"bgColor": "rgba(255,255,255,1)",
+						"color": "rgba(0,0,0,1)",
+						"stroke": 1,
+						"radius": 5,
+						"dasharray": null,
+						"text": "load",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"fontSize": 12,
+						"fontColor": "rgba(0,0,0,1)",
+						"fontFamily": null
+					},
+					{
+						"type": "TooltipFigure",
+						"id": "f683edaf-60b2-400f-9e30-7038c4c763a0",
+						"x": 229,
+						"y": 182,
+						"width": 85.25,
+						"height": 43,
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {
+							"layout": [
+								{
+									"name": "Label",
+									"data": {
+										"type": "text",
+										"default": "Input",
+										"label": "Label",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								}
+							],
+							"data": {
+								"Label": "Input"
+							},
+							"id": "f683edaf-60b2-400f-9e30-7038c4c763a0",
+							"model": {
+								"name": "Data Frame",
+								"layout": [
+									{
+										"name": "Label",
+										"data": {
+											"type": "text",
+											"default": "Input",
+											"label": "Label",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									}
+								],
+								"type": "DataFrame",
+								"inputFan": 10
+							},
+							"type": "DataFrame"
+						},
+						"cssClass": "labelModel",
+						"ports": [
+							{
+								"type": "draw2d.InputPort",
+								"id": "f683edaf-60b2-400f-9e30-7038c4c763a0DataFrame",
+								"width": 10,
+								"height": 10,
+								"alpha": 1,
+								"selectable": false,
+								"draggable": true,
+								"angle": 0,
+								"userData": {},
+								"cssClass": "draw2d_InputPort",
+								"bgColor": "rgba(79,104,112,1)",
+								"color": "rgba(27,27,27,1)",
+								"stroke": 1,
+								"dasharray": null,
+								"maxFanOut": 10,
+								"name": "input0",
+								"semanticGroup": "global",
+								"port": "draw2d.InputPort",
+								"locator": "draw2d.layout.locator.InputPortLocator",
+								"locatorAttr": {}
+							}
+						],
+						"bgColor": "rgba(255,255,255,1)",
+						"color": "rgba(0,0,0,1)",
+						"stroke": 1,
+						"radius": 5,
+						"dasharray": null,
+						"text": "Data Frame",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"fontSize": 12,
+						"fontColor": "rgba(0,0,0,1)",
+						"fontFamily": null
+					},
+					{
+						"type": "TooltipFigure",
+						"id": "7582cf7b-a809-4b55-bd87-45218a327260",
+						"x": 330,
+						"y": 30,
+						"width": 99.5,
+						"height": 43,
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {
+							"layout": [
+								{
+									"name": "PredictorType",
+									"data": {
+										"type": "hidden",
+										"default": "External",
+										"label": "Predictor Type",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "CurveLabel",
+									"data": {
+										"type": "text",
+										"default": "Target",
+										"label": "Curve Label",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": "",
+										"disabled": true
+									}
+								},
+								{
+									"name": "CurveName",
+									"data": {
+										"type": "curveName-v2",
+										"default": null,
+										"values": [],
+										"label": "Curve Name",
+										"url": {
+											"userReadable": "/etrm-rest-api/curve-name-reader/get",
+											"servlet": "/Trading/DealCapture/backoffice/CurveNameCreatorPage.jsp"
+										},
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "CurveGrain",
+									"data": {
+										"type": "enum",
+										"default": null,
+										"url": {
+											"url": "/etrm-rest-api/job-ui/curve-grain"
+										},
+										"label": "Curve Grain",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "CurvePhase",
+									"data": {
+										"type": "enum",
+										"values": [],
+										"default": null,
+										"url": {
+											"url": "/etrm-rest-api/job-ui/curve-phase"
+										},
+										"label": "Curve Phase",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "OutputCurveNameOrdinal",
+									"data": {
+										"type": "curveName-v2",
+										"values": [],
+										"label": "Output Curve Name (Ordinal Result)",
+										"url": {
+											"userReadable": "/etrm-rest-api/curve-name-reader/get",
+											"servlet": "/Trading/DealCapture/backoffice/CurveNameCreatorPage.jsp"
+										},
+										"dependsOn": "",
+										"default": null,
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "OutputCurveNameRaw",
+									"data": {
+										"type": "list",
+										"values": [
+											{
+												"column": "CurveName",
+												"data": {
+													"type": "curveName-v2",
+													"values": [],
+													"default": null,
+													"width": 50,
+													"label": "Curve Name",
+													"url": {
+														"userReadable": "/etrm-rest-api/curve-name-reader/get",
+														"servlet": "/Trading/DealCapture/backoffice/CurveNameCreatorPage.jsp"
+													},
+													"dependsOn": "",
+													"dependState": [],
+													"placeHolder": ""
+												}
+											},
+											{
+												"column": "CurvePhase",
+												"data": {
+													"type": "enum",
+													"values": [],
+													"width": 30,
+													"default": null,
+													"help": "Specify the phase of the data curve that the AI model will use for training, indicators or output data.",
+													"url": {
+														"url": "/etrm-rest-api/job-ui/curve-phase"
+													},
+													"label": "Curve Phase",
+													"dependsOn": "",
+													"dependState": [],
+													"placeHolder": ""
+												}
+											},
+											{
+												"column": "CurveGrain",
+												"data": {
+													"type": "enum",
+													"width": 30,
+													"default": null,
+													"help": "Curve granularity or timescale of the data, e.g. 5, 15, 30 minutes, hourly etc.",
+													"url": {
+														"url": "/etrm-rest-api/job-ui/curve-grain"
+													},
+													"label": "Curve Grain",
+													"dependsOn": "",
+													"dependState": [],
+													"placeHolder": ""
+												}
+											}
+										],
+										"label": "Output Curve Name (Raw Result)",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "OutputCurvePhase",
+									"data": {
+										"type": "enum",
+										"values": [],
+										"default": null,
+										"url": {
+											"url": "/etrm-rest-api/job-ui/curve-phase"
+										},
+										"label": "Output Curve Phase",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "EnableVisualization",
+									"data": {
+										"type": "bool",
+										"default": true,
+										"label": "Enable Visualization",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "test1",
+									"data": {
+										"type": "container",
+										"default": "",
+										"placeHolder": "",
+										"values": [
+											{
+												"field": {
+													"name": "ImbalanceMethod",
+													"data": {
+														"type": "group",
+														"values": [
+															{
+																"field": {
+																	"name": "Method",
+																	"data": {
+																		"type": "enum",
+																		"default": "auto",
+																		"label": "Method",
+																		"values": [
+																			{
+																				"id": 0,
+																				"value": "RandomOverSampling",
+																				"name": "Random Over Sampling"
+																			},
+																			{
+																				"id": 1,
+																				"value": "SMOTE",
+																				"name": "SMOTE"
+																			},
+																			{
+																				"id": 2,
+																				"value": "SVMSMOTE",
+																				"name": "SVM SMOTE"
+																			},
+																			{
+																				"id": 3,
+																				"value": "AdaptiveSynthetic",
+																				"name": "Adaptive Synthetic"
+																			},
+																			{
+																				"id": 4,
+																				"value": "BorderlineSMOTE",
+																				"name": "Borderline Smote"
+																			},
+																			{
+																				"id": 5,
+																				"value": "RandomUnderSampling",
+																				"name": "Random Under Sampling"
+																			},
+																			{
+																				"id": 6,
+																				"value": "ClusterCentroids",
+																				"name": "Cluster Centroids"
+																			},
+																			{
+																				"id": 7,
+																				"value": "EditedNearestNeighbors",
+																				"name": "Edited Nearest Neighbors"
+																			},
+																			{
+																				"id": 8,
+																				"value": "RepeatedEnn",
+																				"name": "Repeated ENN"
+																			}
+																		],
+																		"dependsOn": "",
+																		"dependState": [],
+																		"placeHolder": ""
+																	}
+																},
+																"fxFlex": 100
+															},
+															{
+																"field": {
+																	"name": "sampling_strategy_oversampling",
+																	"data": {
+																		"type": "enum",
+																		"values": [
+																			{
+																				"id": 0,
+																				"value": "minority",
+																				"name": "minority"
+																			},
+																			{
+																				"id": 1,
+																				"value": "notMinority",
+																				"name": "not minority"
+																			},
+																			{
+																				"id": 2,
+																				"value": "notMajority",
+																				"name": "not majority"
+																			},
+																			{
+																				"id": 3,
+																				"value": "all",
+																				"name": "all"
+																			},
+																			{
+																				"id": 4,
+																				"value": "auto",
+																				"name": "auto "
+																			}
+																		],
+																		"default": "auto",
+																		"label": "Sampling Strategy",
+																		"dependencies": [
+																			{
+																				"name": "Method",
+																				"values": [
+																					"RandomOverSampling",
+																					"Smote",
+																					"SvmSmote",
+																					"AdaptiveSynthetic",
+																					"BorderlineSmote"
+																				]
+																			}
+																		]
+																	}
+																},
+																"fxFlex": 100
+															},
+															{
+																"field": {
+																	"name": "sampling_strategy_undersampling",
+																	"data": {
+																		"type": "enum",
+																		"values": [
+																			{
+																				"id": 0,
+																				"value": "majority",
+																				"name": "majority"
+																			},
+																			{
+																				"id": 1,
+																				"value": "notMinority",
+																				"name": "not minority"
+																			},
+																			{
+																				"id": 2,
+																				"value": "notMajority",
+																				"name": "not majority"
+																			},
+																			{
+																				"id": 3,
+																				"value": "all",
+																				"name": "all"
+																			},
+																			{
+																				"id": 4,
+																				"value": "auto",
+																				"name": "auto "
+																			}
+																		],
+																		"default": "auto",
+																		"label": "Sampling Strategy",
+																		"dependencies": [
+																			{
+																				"name": "Method",
+																				"values": [
+																					"RandomUnderSampling",
+																					"ClusterCentroids",
+																					"EditedNearestNeighbors"
+																				]
+																			}
+																		]
+																	}
+																},
+																"fxFlex": 100
+															},
+															{
+																"field": {
+																	"name": "random_state",
+																	"data": {
+																		"type": "int",
+																		"default": null,
+																		"label": "Random State",
+																		"dependencies": [
+																			{
+																				"name": "Method",
+																				"values": [
+																					"RandomOverSampling",
+																					"Smote",
+																					"SvmSmote",
+																					"AdaptiveSynthetic",
+																					"BorderlineSmote",
+																					"RandomUnderSampling",
+																					"ClusterCentroids"
+																				]
+																			}
+																		]
+																	}
+																},
+																"fxFlex": 100
+															},
+															{
+																"field": {
+																	"name": "k_neighbors",
+																	"data": {
+																		"type": "int",
+																		"values": [],
+																		"default": null,
+																		"label": "K Neighbors",
+																		"dependencies": [
+																			{
+																				"name": "Method",
+																				"values": [
+																					"Smote",
+																					"SvmSmote",
+																					"BorderlineSmote"
+																				]
+																			}
+																		]
+																	}
+																},
+																"fxFlex": 100
+															},
+															{
+																"field": {
+																	"name": "n_neighbors",
+																	"data": {
+																		"type": "int",
+																		"values": [],
+																		"default": null,
+																		"label": "N Neighbors",
+																		"dependencies": [
+																			{
+																				"name": "Method",
+																				"values": [
+																					"AdaptiveSynthetic",
+																					"EditedNearestNeighbors",
+																					"RepeatedEnn"
+																				]
+																			}
+																		]
+																	}
+																},
+																"fxFlex": 100
+															},
+															{
+																"field": {
+																	"name": "m_neighbors",
+																	"data": {
+																		"type": "int",
+																		"values": [],
+																		"default": null,
+																		"label": "M Neighbors",
+																		"dependencies": [
+																			{
+																				"name": "Method",
+																				"values": [
+																					"BorderlineSmote"
+																				]
+																			}
+																		]
+																	}
+																},
+																"fxFlex": 100
+															}
+														],
+														"label": "Imbalance Method"
+													}
+												},
+												"fxFlex": 100
+											}
+										]
+									}
+								}
+							],
+							"data": {
+								"PredictorType": "External",
+								"CurveLabel": "Target",
+								"CurveName": "MarketData:Node,1096",
+								"CurveGrain": "2",
+								"CurvePhase": "16",
+								"OutputCurveNameOrdinal": "MarketData:Node,1096",
+								"OutputCurveNameRaw": [
+									{
+										"CurveName": "MarketData:Node,1096",
+										"CurvePhase": "140",
+										"CurveGrain": "2"
+									},
+									{
+										"CurveName": "MarketData:Node,1096",
+										"CurvePhase": "141",
+										"CurveGrain": "2"
+									}
+								],
+								"OutputCurvePhase": "142",
+								"EnableVisualization": true,
+								"ImbalanceMethod": {
+									"Method": "auto",
+									"sampling_strategy_oversampling": "auto",
+									"sampling_strategy_undersampling": "auto",
+									"random_state": null,
+									"k_neighbors": null,
+									"n_neighbors": null,
+									"m_neighbors": null
+								}
+							},
+							"id": "7582cf7b-a809-4b55-bd87-45218a327260",
+							"model": {
+								"name": "External Target",
+								"layout": [
+									{
+										"name": "PredictorType",
+										"data": {
+											"type": "hidden",
+											"default": "External",
+											"label": "Predictor Type",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "CurveLabel",
+										"data": {
+											"type": "text",
+											"default": "Target",
+											"label": "Curve Label",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": "",
+											"disabled": true
+										}
+									},
+									{
+										"name": "CurveName",
+										"data": {
+											"type": "curveName-v2",
+											"default": null,
+											"values": [],
+											"label": "Curve Name",
+											"url": {
+												"userReadable": "/etrm-rest-api/curve-name-reader/get",
+												"servlet": "/Trading/DealCapture/backoffice/CurveNameCreatorPage.jsp"
+											},
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "CurveGrain",
+										"data": {
+											"type": "enum",
+											"default": null,
+											"url": {
+												"url": "/etrm-rest-api/job-ui/curve-grain"
+											},
+											"label": "Curve Grain",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "CurvePhase",
+										"data": {
+											"type": "enum",
+											"values": [],
+											"default": null,
+											"url": {
+												"url": "/etrm-rest-api/job-ui/curve-phase"
+											},
+											"label": "Curve Phase",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "OutputCurveNameOrdinal",
+										"data": {
+											"type": "curveName-v2",
+											"values": [],
+											"label": "Output Curve Name (Ordinal Result)",
+											"url": {
+												"userReadable": "/etrm-rest-api/curve-name-reader/get",
+												"servlet": "/Trading/DealCapture/backoffice/CurveNameCreatorPage.jsp"
+											},
+											"dependsOn": "",
+											"default": null,
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "OutputCurveNameRaw",
+										"data": {
+											"type": "list",
+											"values": [
+												{
+													"column": "CurveName",
+													"data": {
+														"type": "curveName-v2",
+														"values": [],
+														"default": null,
+														"width": 50,
+														"label": "Curve Name",
+														"url": {
+															"userReadable": "/etrm-rest-api/curve-name-reader/get",
+															"servlet": "/Trading/DealCapture/backoffice/CurveNameCreatorPage.jsp"
+														},
+														"dependsOn": "",
+														"dependState": [],
+														"placeHolder": ""
+													}
+												},
+												{
+													"column": "CurvePhase",
+													"data": {
+														"type": "enum",
+														"values": [],
+														"width": 30,
+														"default": null,
+														"help": "Specify the phase of the data curve that the AI model will use for training, indicators or output data.",
+														"url": {
+															"url": "/etrm-rest-api/job-ui/curve-phase"
+														},
+														"label": "Curve Phase",
+														"dependsOn": "",
+														"dependState": [],
+														"placeHolder": ""
+													}
+												},
+												{
+													"column": "CurveGrain",
+													"data": {
+														"type": "enum",
+														"width": 30,
+														"default": null,
+														"help": "Curve granularity or timescale of the data, e.g. 5, 15, 30 minutes, hourly etc.",
+														"url": {
+															"url": "/etrm-rest-api/job-ui/curve-grain"
+														},
+														"label": "Curve Grain",
+														"dependsOn": "",
+														"dependState": [],
+														"placeHolder": ""
+													}
+												}
+											],
+											"label": "Output Curve Name (Raw Result)",
+											"dependsOn": "",
+											"dependState": []
+										}
+									},
+									{
+										"name": "OutputCurvePhase",
+										"data": {
+											"type": "enum",
+											"values": [],
+											"default": null,
+											"url": {
+												"url": "/etrm-rest-api/job-ui/curve-phase"
+											},
+											"label": "Output Curve Phase",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "EnableVisualization",
+										"data": {
+											"type": "bool",
+											"default": true,
+											"label": "Enable Visualization",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "test1",
+										"data": {
+											"type": "container",
+											"default": "",
+											"placeHolder": "",
+											"values": [
+												{
+													"field": {
+														"name": "ImbalanceMethod",
+														"data": {
+															"type": "group",
+															"values": [
+																{
+																	"field": {
+																		"name": "Method",
+																		"data": {
+																			"type": "enum",
+																			"default": "auto",
+																			"label": "Method",
+																			"values": [
+																				{
+																					"id": 0,
+																					"value": "RandomOverSampling",
+																					"name": "Random Over Sampling"
+																				},
+																				{
+																					"id": 1,
+																					"value": "SMOTE",
+																					"name": "SMOTE"
+																				},
+																				{
+																					"id": 2,
+																					"value": "SVMSMOTE",
+																					"name": "SVM SMOTE"
+																				},
+																				{
+																					"id": 3,
+																					"value": "AdaptiveSynthetic",
+																					"name": "Adaptive Synthetic"
+																				},
+																				{
+																					"id": 4,
+																					"value": "BorderlineSMOTE",
+																					"name": "Borderline Smote"
+																				},
+																				{
+																					"id": 5,
+																					"value": "RandomUnderSampling",
+																					"name": "Random Under Sampling"
+																				},
+																				{
+																					"id": 6,
+																					"value": "ClusterCentroids",
+																					"name": "Cluster Centroids"
+																				},
+																				{
+																					"id": 7,
+																					"value": "EditedNearestNeighbors",
+																					"name": "Edited Nearest Neighbors"
+																				},
+																				{
+																					"id": 8,
+																					"value": "RepeatedEnn",
+																					"name": "Repeated ENN"
+																				}
+																			],
+																			"dependsOn": "",
+																			"dependState": [],
+																			"placeHolder": ""
+																		}
+																	},
+																	"fxFlex": 100
+																},
+																{
+																	"field": {
+																		"name": "sampling_strategy_oversampling",
+																		"data": {
+																			"type": "enum",
+																			"values": [
+																				{
+																					"id": 0,
+																					"value": "minority",
+																					"name": "minority"
+																				},
+																				{
+																					"id": 1,
+																					"value": "notMinority",
+																					"name": "not minority"
+																				},
+																				{
+																					"id": 2,
+																					"value": "notMajority",
+																					"name": "not majority"
+																				},
+																				{
+																					"id": 3,
+																					"value": "all",
+																					"name": "all"
+																				},
+																				{
+																					"id": 4,
+																					"value": "auto",
+																					"name": "auto "
+																				}
+																			],
+																			"default": "auto",
+																			"label": "Sampling Strategy",
+																			"dependencies": [
+																				{
+																					"name": "Method",
+																					"values": [
+																						"RandomOverSampling",
+																						"Smote",
+																						"SvmSmote",
+																						"AdaptiveSynthetic",
+																						"BorderlineSmote"
+																					]
+																				}
+																			]
+																		}
+																	},
+																	"fxFlex": 100
+																},
+																{
+																	"field": {
+																		"name": "sampling_strategy_undersampling",
+																		"data": {
+																			"type": "enum",
+																			"values": [
+																				{
+																					"id": 0,
+																					"value": "majority",
+																					"name": "majority"
+																				},
+																				{
+																					"id": 1,
+																					"value": "notMinority",
+																					"name": "not minority"
+																				},
+																				{
+																					"id": 2,
+																					"value": "notMajority",
+																					"name": "not majority"
+																				},
+																				{
+																					"id": 3,
+																					"value": "all",
+																					"name": "all"
+																				},
+																				{
+																					"id": 4,
+																					"value": "auto",
+																					"name": "auto "
+																				}
+																			],
+																			"default": "auto",
+																			"label": "Sampling Strategy",
+																			"dependencies": [
+																				{
+																					"name": "Method",
+																					"values": [
+																						"RandomUnderSampling",
+																						"ClusterCentroids",
+																						"EditedNearestNeighbors"
+																					]
+																				}
+																			]
+																		}
+																	},
+																	"fxFlex": 100
+																},
+																{
+																	"field": {
+																		"name": "random_state",
+																		"data": {
+																			"type": "int",
+																			"default": null,
+																			"label": "Random State",
+																			"dependencies": [
+																				{
+																					"name": "Method",
+																					"values": [
+																						"RandomOverSampling",
+																						"Smote",
+																						"SvmSmote",
+																						"AdaptiveSynthetic",
+																						"BorderlineSmote",
+																						"RandomUnderSampling",
+																						"ClusterCentroids"
+																					]
+																				}
+																			]
+																		}
+																	},
+																	"fxFlex": 100
+																},
+																{
+																	"field": {
+																		"name": "k_neighbors",
+																		"data": {
+																			"type": "int",
+																			"values": [],
+																			"default": null,
+																			"label": "K Neighbors",
+																			"dependencies": [
+																				{
+																					"name": "Method",
+																					"values": [
+																						"Smote",
+																						"SvmSmote",
+																						"BorderlineSmote"
+																					]
+																				}
+																			]
+																		}
+																	},
+																	"fxFlex": 100
+																},
+																{
+																	"field": {
+																		"name": "n_neighbors",
+																		"data": {
+																			"type": "int",
+																			"values": [],
+																			"default": null,
+																			"label": "N Neighbors",
+																			"dependencies": [
+																				{
+																					"name": "Method",
+																					"values": [
+																						"AdaptiveSynthetic",
+																						"EditedNearestNeighbors",
+																						"RepeatedEnn"
+																					]
+																				}
+																			]
+																		}
+																	},
+																	"fxFlex": 100
+																},
+																{
+																	"field": {
+																		"name": "m_neighbors",
+																		"data": {
+																			"type": "int",
+																			"values": [],
+																			"default": null,
+																			"label": "M Neighbors",
+																			"dependencies": [
+																				{
+																					"name": "Method",
+																					"values": [
+																						"BorderlineSmote"
+																					]
+																				}
+																			]
+																		}
+																	},
+																	"fxFlex": 100
+																}
+															],
+															"label": "Imbalance Method"
+														}
+													},
+													"fxFlex": 100
+												}
+											]
+										}
+									}
+								],
+								"type": "Target",
+								"outputFan": 10
+							},
+							"type": "Target"
+						},
+						"cssClass": "labelModel",
+						"ports": [
+							{
+								"type": "draw2d.OutputPort",
+								"id": "7582cf7b-a809-4b55-bd87-45218a327260Target",
+								"width": 10,
+								"height": 10,
+								"alpha": 1,
+								"selectable": false,
+								"draggable": true,
+								"angle": 0,
+								"userData": {},
+								"cssClass": "draw2d_OutputPort",
+								"bgColor": "rgba(79,104,112,1)",
+								"color": "rgba(27,27,27,1)",
+								"stroke": 1,
+								"dasharray": null,
+								"maxFanOut": 10,
+								"name": "output",
+								"semanticGroup": "global",
+								"port": "draw2d.OutputPort",
+								"locator": "draw2d.layout.locator.OutputPortLocator",
+								"locatorAttr": {}
+							}
+						],
+						"bgColor": "rgba(255,255,255,1)",
+						"color": "rgba(0,0,0,1)",
+						"stroke": 1,
+						"radius": 5,
+						"dasharray": null,
+						"text": "Target",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"fontSize": 12,
+						"fontColor": "rgba(0,0,0,1)",
+						"fontFamily": null
+					},
+					{
+						"type": "TooltipFigure",
+						"id": "5de654a3-c5b4-4678-8b6f-8694ba5b307e",
+						"x": 491,
+						"y": 28,
+						"width": 118.0625,
+						"height": 43,
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {
+							"layout": [
+								{
+									"name": "Action",
+									"data": {
+										"type": "hidden",
+										"values": [],
+										"default": "GapFilling",
+										"help": "",
+										"url": "",
+										"regex": "",
+										"label": "Action",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "Method",
+									"data": {
+										"type": "hidden",
+										"values": [],
+										"default": "LinearInterpolation",
+										"help": "",
+										"url": "",
+										"regex": "",
+										"label": "Method",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								}
+							],
+							"data": {
+								"Action": "GapFilling",
+								"Method": "LinearInterpolation"
+							},
+							"id": "5de654a3-c5b4-4678-8b6f-8694ba5b307e",
+							"model": {
+								"name": "Linear Interpolation",
+								"layout": [
+									{
+										"name": "Action",
+										"data": {
+											"type": "hidden",
+											"values": [],
+											"default": "GapFilling",
+											"help": "",
+											"url": "",
+											"regex": "",
+											"label": "Action",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "Method",
+										"data": {
+											"type": "hidden",
+											"values": [],
+											"default": "LinearInterpolation",
+											"help": "",
+											"url": "",
+											"regex": "",
+											"label": "Method",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									}
+								],
+								"type": "GapFilling",
+								"inputFan": 1,
+								"outputFan": 10
+							},
+							"type": "GapFilling"
+						},
+						"cssClass": "labelModel",
+						"ports": [
+							{
+								"type": "draw2d.InputPort",
+								"id": "5de654a3-c5b4-4678-8b6f-8694ba5b307eGapFilling",
+								"width": 10,
+								"height": 10,
+								"alpha": 1,
+								"selectable": false,
+								"draggable": true,
+								"angle": 0,
+								"userData": {},
+								"cssClass": "draw2d_InputPort",
+								"bgColor": "rgba(79,104,112,1)",
+								"color": "rgba(27,27,27,1)",
+								"stroke": 1,
+								"dasharray": null,
+								"maxFanOut": 1,
+								"name": "input0",
+								"semanticGroup": "global",
+								"port": "draw2d.InputPort",
+								"locator": "draw2d.layout.locator.InputPortLocator",
+								"locatorAttr": {}
+							},
+							{
+								"type": "draw2d.OutputPort",
+								"id": "5de654a3-c5b4-4678-8b6f-8694ba5b307eGapFilling",
+								"width": 10,
+								"height": 10,
+								"alpha": 1,
+								"selectable": false,
+								"draggable": true,
+								"angle": 0,
+								"userData": {},
+								"cssClass": "draw2d_OutputPort",
+								"bgColor": "rgba(79,104,112,1)",
+								"color": "rgba(27,27,27,1)",
+								"stroke": 1,
+								"dasharray": null,
+								"maxFanOut": 10,
+								"name": "output",
+								"semanticGroup": "global",
+								"port": "draw2d.OutputPort",
+								"locator": "draw2d.layout.locator.OutputPortLocator",
+								"locatorAttr": {}
+							}
+						],
+						"bgColor": "rgba(255,255,255,1)",
+						"color": "rgba(0,0,0,1)",
+						"stroke": 1,
+						"radius": 5,
+						"dasharray": null,
+						"text": "Linear Interpolation",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"fontSize": 12,
+						"fontColor": "rgba(0,0,0,1)",
+						"fontFamily": null
+					},
+					{
+						"type": "TooltipFigure",
+						"id": "ef502351-e6c9-4845-89d7-efe7dad5109b",
+						"x": 688,
+						"y": 21,
+						"width": 61.375,
+						"height": 43,
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {
+							"layout": [
+								{
+									"name": "Action",
+									"data": {
+										"type": "hidden",
+										"values": [],
+										"default": "Quantization",
+										"help": "",
+										"url": "",
+										"regex": "",
+										"label": "Action",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "Method",
+									"data": {
+										"type": "hidden",
+										"values": [],
+										"default": "Binary",
+										"help": "",
+										"url": "",
+										"regex": "",
+										"label": "Method",
+										"dependsOn": "",
+										"dependState": [],
+										"placeHolder": ""
+									}
+								},
+								{
+									"name": "Threshold",
+									"data": {
+										"type": "float",
+										"default": null,
+										"placeHolder": "",
+										"help": " ",
+										"url": "",
+										"regex": "",
+										"label": "Threshold",
+										"dependsOn": "",
+										"dependState": []
+									}
+								}
+							],
+							"data": {
+								"Action": "Quantization",
+								"Method": "Binary",
+								"Threshold": 2000
+							},
+							"id": "ef502351-e6c9-4845-89d7-efe7dad5109b",
+							"model": {
+								"name": "Binary",
+								"layout": [
+									{
+										"name": "Action",
+										"data": {
+											"type": "hidden",
+											"values": [],
+											"default": "Quantization",
+											"help": "",
+											"url": "",
+											"regex": "",
+											"label": "Action",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "Method",
+										"data": {
+											"type": "hidden",
+											"values": [],
+											"default": "Binary",
+											"help": "",
+											"url": "",
+											"regex": "",
+											"label": "Method",
+											"dependsOn": "",
+											"dependState": [],
+											"placeHolder": ""
+										}
+									},
+									{
+										"name": "Threshold",
+										"data": {
+											"type": "float",
+											"default": null,
+											"placeHolder": "",
+											"help": " ",
+											"url": "",
+											"regex": "",
+											"label": "Threshold",
+											"dependsOn": "",
+											"dependState": []
+										}
+									}
+								],
+								"type": "Quantization",
+								"inputFan": 1,
+								"outputFan": 10
+							},
+							"type": "Quantization"
+						},
+						"cssClass": "labelModel",
+						"ports": [
+							{
+								"type": "draw2d.InputPort",
+								"id": "ef502351-e6c9-4845-89d7-efe7dad5109bQuantization",
+								"width": 10,
+								"height": 10,
+								"alpha": 1,
+								"selectable": false,
+								"draggable": true,
+								"angle": 0,
+								"userData": {},
+								"cssClass": "draw2d_InputPort",
+								"bgColor": "rgba(79,104,112,1)",
+								"color": "rgba(27,27,27,1)",
+								"stroke": 1,
+								"dasharray": null,
+								"maxFanOut": 1,
+								"name": "input0",
+								"semanticGroup": "global",
+								"port": "draw2d.InputPort",
+								"locator": "draw2d.layout.locator.InputPortLocator",
+								"locatorAttr": {}
+							},
+							{
+								"type": "draw2d.OutputPort",
+								"id": "ef502351-e6c9-4845-89d7-efe7dad5109bQuantization",
+								"width": 10,
+								"height": 10,
+								"alpha": 1,
+								"selectable": false,
+								"draggable": true,
+								"angle": 0,
+								"userData": {},
+								"cssClass": "draw2d_OutputPort",
+								"bgColor": "rgba(79,104,112,1)",
+								"color": "rgba(27,27,27,1)",
+								"stroke": 1,
+								"dasharray": null,
+								"maxFanOut": 10,
+								"name": "output",
+								"semanticGroup": "global",
+								"port": "draw2d.OutputPort",
+								"locator": "draw2d.layout.locator.OutputPortLocator",
+								"locatorAttr": {}
+							}
+						],
+						"bgColor": "rgba(255,255,255,1)",
+						"color": "rgba(0,0,0,1)",
+						"stroke": 1,
+						"radius": 5,
+						"dasharray": null,
+						"text": "Binary",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"fontSize": 12,
+						"fontColor": "rgba(0,0,0,1)",
+						"fontFamily": null
+					},
+					{
+						"type": "draw2d.Connection",
+						"id": "941372b8-5a52-1d52-6d42-e6fca0dd3915",
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {},
+						"cssClass": "draw2d_Connection",
+						"stroke": 2,
+						"color": "rgba(18,156,228,1)",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+						"vertex": [
+							{
+								"x": 58.34375,
+								"y": 173
+							},
+							{
+								"x": 229,
+								"y": 205
+							}
+						],
+						"router": "draw2d.layout.connection.DirectRouter",
+						"radius": 3,
+						"source": {
+							"node": "9055ca7b-a89e-42ef-ba4b-438913bc79cb",
+							"port": "output"
+						},
+						"target": {
+							"node": "f683edaf-60b2-400f-9e30-7038c4c763a0",
+							"port": "input0",
+							"decoration": "draw2d.decoration.connection.ArrowDecorator"
+						}
+					},
+					{
+						"type": "draw2d.Connection",
+						"id": "2a5c09ba-2b39-4c81-be75-4171c83758b7",
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {},
+						"cssClass": "draw2d_Connection",
+						"stroke": 2,
+						"color": "rgba(18,156,228,1)",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+						"vertex": [
+							{
+								"x": 55.015625,
+								"y": 248
+							},
+							{
+								"x": 229,
+								"y": 205
+							}
+						],
+						"router": "draw2d.layout.connection.DirectRouter",
+						"radius": 3,
+						"source": {
+							"node": "6f5e0e1d-d9bc-4f1a-b448-676fe7e2f008",
+							"port": "output"
+						},
+						"target": {
+							"node": "f683edaf-60b2-400f-9e30-7038c4c763a0",
+							"port": "input0",
+							"decoration": "draw2d.decoration.connection.ArrowDecorator"
+						}
+					},
+					{
+						"type": "draw2d.Connection",
+						"id": "aeff3e95-dda1-8f83-e0b0-f9cca94b33fe",
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {},
+						"cssClass": "draw2d_Connection",
+						"stroke": 2,
+						"color": "rgba(18,156,228,1)",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+						"vertex": [
+							{
+								"x": 626.078125,
+								"y": 51
+							},
+							{
+								"x": 688,
+								"y": 44
+							}
+						],
+						"router": "draw2d.layout.connection.DirectRouter",
+						"radius": 3,
+						"source": {
+							"node": "5de654a3-c5b4-4678-8b6f-8694ba5b307e",
+							"port": "output"
+						},
+						"target": {
+							"node": "ef502351-e6c9-4845-89d7-efe7dad5109b",
+							"port": "input0",
+							"decoration": "draw2d.decoration.connection.ArrowDecorator"
+						}
+					},
+					{
+						"type": "draw2d.Connection",
+						"id": "150bdfd7-d53a-b4ca-ae5d-f915acfe59fb",
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {},
+						"cssClass": "draw2d_Connection",
+						"stroke": 2,
+						"color": "rgba(18,156,228,1)",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+						"vertex": [
+							{
+								"x": 396.03125,
+								"y": 53
+							},
+							{
+								"x": 491,
+								"y": 51
+							}
+						],
+						"router": "draw2d.layout.connection.DirectRouter",
+						"radius": 3,
+						"source": {
+							"node": "7582cf7b-a809-4b55-bd87-45218a327260",
+							"port": "output"
+						},
+						"target": {
+							"node": "5de654a3-c5b4-4678-8b6f-8694ba5b307e",
+							"port": "input0",
+							"decoration": "draw2d.decoration.connection.ArrowDecorator"
+						}
+					}
+				]
+			},
+			"ai": {
+				"draw2dStructure": [
+					{
+						"type": "TooltipFigure",
+						"id": "b9d83d0c-03d3-4a7f-a26e-07dfba665ab2",
+						"x": 20,
+						"y": 20,
+						"width": 85.25,
+						"height": 43,
+						"alpha": 1,
+						"selectable": false,
+						"draggable": false,
+						"angle": 0,
+						"userData": {
+							"layout": [
+								{
+									"name": "name",
+									"data": {
+										"type": "text",
+										"default": "",
+										"help": "Name of the Data Frame, use names without whitespace, instead of whitespace use underscore.\nWe recommended to keep the system provided default names for consitency. The name should just consist of lower and upper case letters and numbers without whitespace.\nThese are valid names: Input, InputLayer, inputLayer \nNote that Layer's name should be UNIQUE.",
+										"url": "",
+										"regex": "",
+										"label": "Name",
+										"dependsOn": "",
+										"dependState": []
+									}
+								}
+							],
+							"data": {
+								"name": "DataFrame",
+								"class_name": "DataFrame",
+								"config": {
+									"batch_input_shape": [],
+									"dtype": "float32",
+									"sparse": false,
+									"name": "DataFrame"
+								},
+								"inbound_nodes": []
+							},
+							"id": "b9d83d0c-03d3-4a7f-a26e-07dfba665ab2",
+							"type": "DataFrame"
+						},
+						"cssClass": "labelModel",
+						"ports": [
+							{
+								"type": "draw2d.OutputPort",
+								"id": "f4ed4974-6e61-4af8-a556-0dc17904cb4d",
+								"width": 10,
+								"height": 10,
+								"alpha": 1,
+								"selectable": false,
+								"draggable": true,
+								"angle": 0,
+								"userData": {},
+								"cssClass": "draw2d_OutputPort",
+								"bgColor": "rgba(79,104,112,1)",
+								"color": "rgba(27,27,27,1)",
+								"stroke": 1,
+								"dasharray": null,
+								"maxFanOut": 100,
+								"name": "output",
+								"semanticGroup": "global",
+								"port": "draw2d.OutputPort",
+								"locator": "draw2d.layout.locator.OutputPortLocator",
+								"locatorAttr": {}
+							}
+						],
+						"bgColor": "rgba(255,255,255,1)",
+						"color": "rgba(0,0,0,1)",
+						"stroke": 1,
+						"radius": 5,
+						"dasharray": null,
+						"text": "Data Frame",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"fontSize": 12,
+						"fontColor": "rgba(0,0,0,1)",
+						"fontFamily": null
+					},
+					{
+						"type": "TooltipFigure",
+						"id": "6903d14c-aa18-4a30-9b96-a19d5e69a3f1",
+						"x": 400,
+						"y": 150,
+						"width": 91,
+						"height": 43,
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {
+							"layout": [
+								{
+									"name": "criterion",
+									"data": {
+										"type": "enum",
+										"values": [
+											{
+												"id": 0,
+												"name": "mse",
+												"value": "mse"
+											},
+											{
+												"id": 1,
+												"name": "friedman_mse",
+												"value": "friedman_mse"
+											},
+											{
+												"id": 2,
+												"name": "mae",
+												"value": "mae"
+											}
+										],
+										"default": "mse",
+										"help": "The metric upon which the tree is basing it branching decisions.  We recommend to use “MAE (mean absolute error)“ when forecasting high volatility prices, and “MSE (mean squared error)“ when forecasting better behaved load  data.",
+										"url": "",
+										"regex": "",
+										"label": "Criterion",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "max_depth",
+									"data": {
+										"type": "int",
+										"default": null,
+										"help": "Maximum Depth the tree can have. Number of conditions in the decision tree grows exponentially with this value. For load forecasting we recommended the value 6, and for price forecasting the value 8. Higher values for this tab result in complexity of the model and overfitting.",
+										"url": "",
+										"regex": "",
+										"label": "Max Depth",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "min_samples_split",
+									"data": {
+										"type": "float",
+										"default": 2,
+										"help": "Minimum number of sample data required to add a splitting condition or tree branch. If this is an integer (e.g., 2) it will be the absolute number of samples. If this is a decimal (e.g., 0.2) it be considered as a percent of the data, e.g, 20%.\n \nRecommended value is 2. A value higher than 2, or a decimal value (0.2) will cause the model to ignore some specific rules, and should be used only when you need less complex model.",
+										"url": "",
+										"regex": "",
+										"label": "Min Samples Split",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "min_samples_leaf",
+									"data": {
+										"type": "float",
+										"default": 1,
+										"help": "Minimum number of sample data at a leaf node level.  If this is an integer number (e.g., 1), it will be treated as an absolute number of sample data, and if a decimal (e.g., 0.2), it is considered as a percent of the data, e.g., 20%.\n \nIt is recommended to use the default value 1. Higher numbers (or large percentages than 0.2) will increase the model's generality and lower its complexity. ",
+										"url": "",
+										"regex": "",
+										"label": "Min Samples Leaf",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "max_features",
+									"data": {
+										"type": "float",
+										"default": null,
+										"help": "Number of features to consider when creating conditions for the best split. We recommend not to choose a large value. Typical range is between 1 and the number of predictors and indicators chosen in the data tab, e.g, 3 to 5.",
+										"url": "",
+										"regex": "",
+										"label": "Max Features",
+										"dependsOn": "",
+										"dependState": []
+									}
+								},
+								{
+									"name": "min_impurity_split",
+									"data": {
+										"type": "float",
+										"default": null,
+										"help": "Threshold for early stopping in tree growth. A node will split if its impurity is above the threshold, otherwise it is a leaf. Typical value = 0.",
+										"url": "",
+										"regex": "",
+										"label": "Min Impurity Split",
+										"dependsOn": "",
+										"dependState": []
+									}
+								}
+							],
+							"data": {
+								"name": "DecisionTree",
+								"type": "DecisionTree",
+								"config": {
+									"criterion": "mse",
+									"max_depth": null,
+									"min_samples_split": 2,
+									"min_samples_leaf": 1,
+									"max_features": null,
+									"min_impurity_split": 0
+								}
+							},
+							"id": "6903d14c-aa18-4a30-9b96-a19d5e69a3f1",
+							"type": "Ai",
+							"model": {
+								"title": "DecisionTree",
+								"layout": [
+									{
+										"name": "criterion",
+										"data": {
+											"type": "enum",
+											"values": [
+												{
+													"id": 0,
+													"name": "mse",
+													"value": "mse"
+												},
+												{
+													"id": 1,
+													"name": "friedman_mse",
+													"value": "friedman_mse"
+												},
+												{
+													"id": 2,
+													"name": "mae",
+													"value": "mae"
+												}
+											],
+											"default": "mse",
+											"help": "The metric upon which the tree is basing it branching decisions.  We recommend to use “MAE (mean absolute error)“ when forecasting high volatility prices, and “MSE (mean squared error)“ when forecasting better behaved load  data.",
+											"url": "",
+											"regex": "",
+											"label": "Criterion",
+											"dependsOn": "",
+											"dependState": []
+										}
+									},
+									{
+										"name": "max_depth",
+										"data": {
+											"type": "int",
+											"default": null,
+											"help": "Maximum Depth the tree can have. Number of conditions in the decision tree grows exponentially with this value. For load forecasting we recommended the value 6, and for price forecasting the value 8. Higher values for this tab result in complexity of the model and overfitting.",
+											"url": "",
+											"regex": "",
+											"label": "Max Depth",
+											"dependsOn": "",
+											"dependState": []
+										}
+									},
+									{
+										"name": "min_samples_split",
+										"data": {
+											"type": "float",
+											"default": 2,
+											"help": "Minimum number of sample data required to add a splitting condition or tree branch. If this is an integer (e.g., 2) it will be the absolute number of samples. If this is a decimal (e.g., 0.2) it be considered as a percent of the data, e.g, 20%.\n \nRecommended value is 2. A value higher than 2, or a decimal value (0.2) will cause the model to ignore some specific rules, and should be used only when you need less complex model.",
+											"url": "",
+											"regex": "",
+											"label": "Min Samples Split",
+											"dependsOn": "",
+											"dependState": []
+										}
+									},
+									{
+										"name": "min_samples_leaf",
+										"data": {
+											"type": "float",
+											"default": 1,
+											"help": "Minimum number of sample data at a leaf node level.  If this is an integer number (e.g., 1), it will be treated as an absolute number of sample data, and if a decimal (e.g., 0.2), it is considered as a percent of the data, e.g., 20%.\n \nIt is recommended to use the default value 1. Higher numbers (or large percentages than 0.2) will increase the model's generality and lower its complexity. ",
+											"url": "",
+											"regex": "",
+											"label": "Min Samples Leaf",
+											"dependsOn": "",
+											"dependState": []
+										}
+									},
+									{
+										"name": "max_features",
+										"data": {
+											"type": "float",
+											"default": null,
+											"help": "Number of features to consider when creating conditions for the best split. We recommend not to choose a large value. Typical range is between 1 and the number of predictors and indicators chosen in the data tab, e.g, 3 to 5.",
+											"url": "",
+											"regex": "",
+											"label": "Max Features",
+											"dependsOn": "",
+											"dependState": []
+										}
+									},
+									{
+										"name": "min_impurity_split",
+										"data": {
+											"type": "float",
+											"default": null,
+											"help": "Threshold for early stopping in tree growth. A node will split if its impurity is above the threshold, otherwise it is a leaf. Typical value = 0.",
+											"url": "",
+											"regex": "",
+											"label": "Min Impurity Split",
+											"dependsOn": "",
+											"dependState": []
+										}
+									}
+								],
+								"data": {
+									"multiple": false
+								},
+								"color": "#7E57C2"
+							}
+						},
+						"cssClass": "labelModel",
+						"ports": [
+							{
+								"type": "draw2d.InputPort",
+								"id": "91fdf4b8-e2fa-4fc9-8c53-81ee5191a9a1",
+								"width": 10,
+								"height": 10,
+								"alpha": 1,
+								"selectable": false,
+								"draggable": true,
+								"angle": 0,
+								"userData": {},
+								"cssClass": "draw2d_InputPort",
+								"bgColor": "rgba(79,104,112,1)",
+								"color": "rgba(27,27,27,1)",
+								"stroke": 1,
+								"dasharray": null,
+								"maxFanOut": 1,
+								"name": "input0",
+								"semanticGroup": "global",
+								"port": "draw2d.InputPort",
+								"locator": "draw2d.layout.locator.InputPortLocator",
+								"locatorAttr": {}
+							}
+						],
+						"bgColor": "rgba(255,255,255,1)",
+						"color": "rgba(0,0,0,1)",
+						"stroke": 1,
+						"radius": 5,
+						"dasharray": null,
+						"text": "DecisionTree",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"fontSize": 12,
+						"fontColor": "rgba(0,0,0,1)",
+						"fontFamily": null
+					},
+					{
+						"type": "draw2d.Connection",
+						"id": "d2a84396-dedc-cf05-1c37-1c02f0f43df5",
+						"alpha": 1,
+						"selectable": true,
+						"draggable": true,
+						"angle": 0,
+						"userData": {},
+						"cssClass": "draw2d_Connection",
+						"stroke": 2,
+						"color": "rgba(18,156,228,1)",
+						"outlineStroke": 0,
+						"outlineColor": "rgba(0,0,0,0)",
+						"policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+						"vertex": [
+							{
+								"x": 115.6875,
+								"y": 43
+							},
+							{
+								"x": 257.84375,
+								"y": 43
+							},
+							{
+								"x": 257.84375,
+								"y": 173
+							},
+							{
+								"x": 400,
+								"y": 173
+							}
+						],
+						"router": "draw2d.layout.connection.ManhattanBridgedConnectionRouter",
+						"radius": 3,
+						"source": {
+							"node": "b9d83d0c-03d3-4a7f-a26e-07dfba665ab2",
+							"port": "output"
+						},
+						"target": {
+							"node": "6903d14c-aa18-4a30-9b96-a19d5e69a3f1",
+							"port": "input0",
+							"decoration": "draw2d.decoration.connection.ArrowDecorator"
+						}
+					}
+				],
+				"model_structure": {
+					"criterion": "mse",
+					"max_depth": null,
+					"min_samples_split": 2,
+					"min_samples_leaf": 1,
+					"max_features": null,
+					"min_impurity_split": 0
+				},
+				"model_config": null,
+				"model_type": "DecisionTree",
+				"Input_structure": [
+					{
+						"data_frame": "Data Frame",
+						"inputs": [
+							"DecisionTree"
+						]
+					}
+				]
+			},
+			"AllCharts": null,
+			"runDiagnostics": false,
+			"independentRun": false,
+			"jobId": 1310,
+			"runId": 240970
+		}
+	}
+}

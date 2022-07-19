@@ -1,0 +1,115 @@
+{
+  "name": "Kanan_Job",
+  "TradingCalendar": "3",
+  "TimeZone": "257",
+  "ContinuousTraining": false,
+  "OperationalMode": "Real Time",
+  "JobType": "Regression",
+  "DataType": "TimeSeries",
+  "DataSource": "",
+  "InputWindowSize": "1",
+  "OutputWindowSize": "1",
+  "UsePreTrainedModel": false,
+  "company": "0",
+  "market": "1",
+  "OperationalSchedule": "Continuous",
+  "useLevels": false,
+  "description": "",
+  "DateType": "absolute",
+  "StartDate": "2021-06-03T00:00:00.000Z",
+  "StartTime": "00:00",
+  "EndDate": "2021-06-04T00:00:00.000Z",
+  "EndTime": "00:00",
+  "StartOffset": "-12",
+  "EndOffset": 0,
+  "MTSDefinition": {
+    "Curves": [
+      {
+        "type": "Curves",
+        "CurveLabel": "price",
+        "CurveName": "MarketData:Node,1096",
+        "CurvePhase": "16",
+        "CurveGrain": "2",
+        "StartDate": "2021-01-01 00:00:00",
+        "EndDate": "2021-02-06 23:59:59",
+        "StartOffset": null,
+        "StartRegion": null,
+        "EndOffset": null,
+        "EndRegion": null
+      }
+    ],
+    "DateType": "absolute"
+  },
+  "CurveDetails": [
+    {
+      "label": "price",
+      "Property": {
+        "type": "Curves",
+        "PredictorType": "External",
+        "CurveLabel": "price",
+        "CurveName": "MarketData:Node,1096",
+        "CurvePhase": "16",
+        "CurveGrain": "2",
+        "StoreOutput": false,
+        "OutputCurveName": null,
+        "OutputCurvePhase": null,
+        "ShiftOffset": null,
+        "ShiftStrategy": null,
+        "ShiftRegion": null,
+        "ApplyShiftBasedonWeeklyPattern": null,
+        "FillForwardStrategy": null,
+        "EnableVisualization": true,
+        "ShiftWeeklyPattern": null
+      },
+      "Processors": []
+    },
+    {
+      "label": "Target",
+      "Property": {
+        "type": "Target",
+        "PredictorType": "MainTimeSeries",
+        "CurveLabel": "Target",
+        "OutputCurveName": "MarketData:Node,1096",
+        "OutputCurvePhase": "139",
+        "TargetType": null,
+        "BinaryThreshold": 1.05,
+        "FillForwardStrategy": null,
+        "ForwardCurve": [],
+        "EnableVisualization": true
+      },
+      "Processors": []
+    }
+  ],
+  "ai": {
+    "draw2dStructure": null,
+    "model_structure": {
+      "booster": "gbtree",
+      "n_estimators": 100,
+      "eta": 0.3,
+      "gamma": 0,
+      "max_depth": 6,
+      "min_child_weight": 1,
+      "max_delta_step": 0,
+      "subsample": 1,
+      "reg_lambda": 1,
+      "reg_alpha": 0,
+      "sample_type": "uniform",
+      "normalize_type": "tree",
+      "rate_drop": 0,
+      "one_drop": 0,
+      "skip_drop": 0,
+      "updater": "shotgun",
+      "objective": "reg:squarederror",
+      "base_score": 0.5,
+      "eval_metric": "rmse",
+      "seed": 0
+    },
+    "model_config": null,
+    "model_type": "XGBoost"
+  },
+  "AllCharts": null,
+  "runDiagnostics": false,
+  "independentRun": false,
+  "jobId": null,
+  "runId": null
+}

@@ -1,0 +1,147 @@
+{
+	"config": {
+		"JobInformation": {
+			"TradingCalendar": "21",
+			"TimeZone": "257",
+			"ContinuousTraining": false,
+			"OperationalMode": "Real Time",
+			"OperationalSchedule": "Continuous",
+			"UsePreTrainedModel": false,
+			"useLevels": false,
+			"DataSource": "Static",
+			"JobType": "Regression",
+			"DataType": "TimeSeries",
+			"Market": "2",
+			"InputWindowSize": 1,
+			"OutputWindowSize": 1
+		},
+		"DataProcessing": {
+			"Output": {
+				"OriginalForecastedProduct": 0,
+				"PostProcessedForecastedProduct": 0,
+				"TrainingSchedule": "0",
+				"OutputAPI": "0"
+			},
+			"MTSDefinition": {
+				"Curves": [
+					{
+						"type": "Curves",
+						"CurveLabel": "Price",
+						"CurveName": "MarketData:Node,1096",
+						"CurvePhase": "16",
+						"CurveGrain": "2",
+						"StartDate": "2021-01-01 00:00:00",
+						"EndDate": "2021-06-01 23:59:59"
+					}
+				],
+				"DateType": "absolute"
+			},
+			"ExecutionInterval": {
+				"StartDate": "2021-06-02 00:00:00",
+				"EndDate": "2021-06-03 23:59:59",
+				"DateType": "absolute"
+			},
+			"CurveDetails": [
+				{
+					"Label": "Price2",
+					"Property": {
+						"type": "Curves",
+						"PredictorType": "MainTimeSeries",
+						"CurveLabel": "Price_2",
+						"ShiftStrategy": "Simple",
+						"ShiftOffset": -2,
+						"ShiftRegion": "2",
+						"StoreOutput": false,
+						"OutputCurveName": null,
+						"OutputCurvePhase": null,
+						"ApplyShiftBasedonWeeklyPattern": null,
+						"ShiftWeeklyPattern": false,
+						"FillForwardStrategy": null,
+						"EnableVisualization": true
+					},
+					"Processors": [
+						{
+							"Action": "PredictorFunction",
+							"Method": "sma",
+							"RearWindow": 6,
+							"RearPoint": 2
+						}
+					],
+					"Input": [
+						"DataFrame"
+					]
+				},
+				{
+					"Label": "Price1",
+					"Property": {
+						"type": "Curves",
+						"PredictorType": "MainTimeSeries",
+						"CurveLabel": "Price_1",
+						"ShiftStrategy": "Simple",
+						"ShiftOffset": -1,
+						"ShiftRegion": "2",
+						"StoreOutput": false,
+						"OutputCurveName": null,
+						"OutputCurvePhase": null,
+						"ApplyShiftBasedonWeeklyPattern": null,
+						"ShiftWeeklyPattern": false,
+						"FillForwardStrategy": null,
+						"EnableVisualization": true
+					},
+					"Processors": [
+						{
+							"Action": "PredictorFunction",
+							"Method": "sma",
+							"RearWindow": 6,
+							"RearPoint": 2
+						}
+					],
+					"Input": [
+						"DataFrame"
+					]
+				},
+				{
+					"Label": "Target",
+					"Property": {
+						"type": "Target",
+						"PredictorType": "MainTimeSeries",
+						"CurveLabel": "Target",
+						"OutputCurveName": "MarketData:Node,1096",
+						"OutputCurvePhase": "139",
+						"TargetType": "Value",
+						"BinaryThreshold": 1.05,
+						"FillForwardStrategy": "UseForecastedValue",
+						"ForwardCurve": [],
+						"EnableVisualization": true
+					},
+					"Processors": [
+						{
+							"Action": "PredictorFunction",
+							"Method": "sma",
+							"RearWindow": 6,
+							"RearPoint": 0
+						},
+						{
+							"Action": "Quantization",
+							"Method": "Binary",
+							"Threshold": 4000
+						}
+					]
+				}
+			]
+		},
+		"ai": {
+			"Input_structure": [
+				{
+					"data_frame": "DataFrame",
+					"inputs": [
+						"kanan"
+					]
+				}
+			],
+			"model_structure": {},
+			"model_config": null,
+			"model_type": "RandomForest"
+		}
+	}
+}

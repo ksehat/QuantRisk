@@ -1,0 +1,28 @@
+{
+	"IOH_DB_DATETIME_FORMAT": "%Y-%m-%d %H:%M:%S",
+	"IOH_HTTPS_PROXY": {
+		"IOH_HTTPS_PROXY": ""
+	},
+	"IOH_HTTP_PROXY": {
+		"IOH_HTTP_PROXY": ""
+	},
+	"IOH_PROXIES": {
+		"http": "IOH_HTTP_PROXY",
+		"https": "IOH_HTTPS_PROXY"
+	},
+	"IOH_BASE_URL": {
+		"IOH_BASE_URL": ""
+	},
+	"IOH_SC_URL": "",
+	"IOH_SC_METHOD": "post",
+	"IOH_SC_USERNAME": "",
+	"IOH_SC_PASSWORD": "",
+	"IOH_SC_METHOD": "",
+	"IOH_VISUALIZATION_API_URL_PATH": "/etrm-rest-api/job-run-output/write",
+	"IOH_VISUALIZATION_API_METHOD": "post",
+	"IOH_RESULTS_API_URL_PATH": "/etrm-rest-api/base-data-curve/v-1/write/",
+	"IOH_RESULTS_API_METHOD": "post",
+	"IOH_STATUS_API_URL_PATH": "/etrm-rest-api/job-run-output/write",
+	"IOH_STATUS_API_METHOD": "post",
+	"IOH_OFFLINE_MODE": false
+}

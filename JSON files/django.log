@@ -1,0 +1,80 @@
+[2021-07-09 18:55:58,139] [AI INFO] [apps.ai.views:31] Start to create Job runner instance .
+[2021-07-09 18:55:58,139] [AI INFO] [apps.ai.views:39] Job runner instance created successfully.
+[2021-07-09 18:55:58,139] [AI INFO] [apps.ai.views:41] Start Run job.
+[2021-07-09 18:56:02,343] [AI DEBUG] [apps.ai.views:68] Error occurs in the independent process of AI Traceback (most recent call last):
+  File "E:\ai-services-v2_1\qr-ai-machine-v2\apps\ai\views.py", line 44, in run_job
+    job.run()
+  File "job_runner.pyx", line 105, in qr_ai_job_runner.job_runner.JobRunner.run
+  File "job_runner.pyx", line 116, in qr_ai_job_runner.job_runner.JobRunner.run
+  File "job_runner.pyx", line 130, in qr_ai_job_runner.job_runner.JobRunner.start_predict
+  File "job_runner.pyx", line 166, in qr_ai_job_runner.job_runner.JobRunner.build_train_model
+  File "builtin_model.pyx", line 123, in qr_base_supervised_models.builtin_model.BuiltInModel.train
+  File "qr_tracing.pyx", line 79, in qr_utils.qr_tracing.QRTracing.__exit__
+  File "builtin_model.pyx", line 129, in qr_base_supervised_models.builtin_model.BuiltInModel.train
+  File "deep_model.pyx", line 165, in qr_deep_models.deep_model.DeepModel._train
+  File "E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1183, in fit
+    tmp_logs = self.train_function(iterator)
+  File "E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\eager\def_function.py", line 889, in __call__
+    result = self._call(*args, **kwds)
+  File "E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\eager\def_function.py", line 933, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\eager\def_function.py", line 764, in _initialize
+    *args, **kwds))
+  File "E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\eager\function.py", line 3050, in _get_concrete_function_internal_garbage_collected
+    graph_function, _ = self._maybe_define_function(args, kwargs)
+  File "E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\eager\function.py", line 3444, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\eager\function.py", line 3289, in _create_graph_function
+    capture_by_value=self._capture_by_value),
+  File "E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\framework\func_graph.py", line 999, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\eager\def_function.py", line 672, in wrapped_fn
+    out = weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\framework\func_graph.py", line 986, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\training.py:855 train_function  *
+        return step_function(self, iterator)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\training.py:845 step_function  **
+        outputs = model.distribute_strategy.run(run_step, args=(data,))
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:1285 run
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2833 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:3608 _call_for_each_replica
+        return fn(*args, **kwargs)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\training.py:838 run_step  **
+        outputs = model.train_step(data)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\training.py:795 train_step
+        y_pred = self(x, training=True)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:1013 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs, self.name)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:203 assert_input_compatibility
+        ' input tensors. Inputs received: ' + str(inputs))
+
+    ValueError: Layer model expects 2 input(s), but it received 1 input tensors. Inputs received: [<tf.Tensor 'IteratorGetNext:0' shape=(None, 3) dtype=float32>]
+
+ with error in user code:
+
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\training.py:855 train_function  *
+        return step_function(self, iterator)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\training.py:845 step_function  **
+        outputs = model.distribute_strategy.run(run_step, args=(data,))
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:1285 run
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2833 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:3608 _call_for_each_replica
+        return fn(*args, **kwargs)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\training.py:838 run_step  **
+        outputs = model.train_step(data)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\training.py:795 train_step
+        y_pred = self(x, training=True)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:1013 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs, self.name)
+    E:\ai-services-v2_1\env\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:203 assert_input_compatibility
+        ' input tensors. Inputs received: ' + str(inputs))
+
+    ValueError: Layer model expects 2 input(s), but it received 1 input tensors. Inputs received: [<tf.Tensor 'IteratorGetNext:0' shape=(None, 3) dtype=float32>]
+

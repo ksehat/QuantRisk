@@ -1,0 +1,28 @@
+{
+	"RH_HTTP_PROXY": "",
+	"RH_HTTPS_PROXY": "",
+	"RH_SC_URL": "security-service-1.0/",
+	"RH_SC_METHOD": "post",
+	"RH_SC_USERNAME": "",
+	"RH_SC_PASSWORD": "",
+	"IOH_WRITING_RESULT_SUFFIX_V1": "/api/v{}/base-data-curve/v-1/write/",
+	"IOH_WRITING_VISUALIZATION_SUFFIX": "/api/v1/job-run-output/write/",
+	"RH_DIRECT_REQUEST_TOKEN": "",
+	"RH_OFFLINE_MODE": "",
+	"RH_GET_URL_VERSION": "/api/v1/job/get/jobs",
+	"RH_FETCH_CONFIG_SUFFIX" :"/api/v1/job/v2/get/job-input",
+	"RH_DLL_WRAPPER_URL":"http://localhost:8010/api/v1/preprocess/",
+	"RH_AI_MACHINE_URL":"http://localhost:8011/api/v1/ai/execute/",
+	"RH_IO_HANDLER_URL": "http://localhost:8012/api/v1/io/",
+	"RH_FINE_TUNE_URL":"http://localhost:8013/api/v1/backtest/finetune/",
+	"RH_TIME_SIMULATION_URL":"http://localhost:8013/api/v1/backtest/simulation/",
+	"RH_DB_DATETIME_FORMAT":"%Y-%m-%d %H:%M:%S",
+	"REQUESTS_TIMEOUT" : "600",
+	"PROCESS_TIMEOUT" :"240",
+	"MDN": {
+    "https:qr-du-trading.aboitiz.net": "veco",
+    "https:qr-trading-uat.aboitizpower.com": "ap",
+    "https:qr-sandbox.aboitiz.net": "sandbox",
+    "https:etrm-ai.quantsys.com": "quantsys"
+	}
+}

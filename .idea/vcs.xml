@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/QRAIVisualization" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/backtest-package" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qr-ai-job-runner-v2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qr-ai-machine-v2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qr-backtest-machine-v2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qr-base-supervised-models-v2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qr-clustering-jobrunner" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qr-deep-models-v2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qr-request-handler-v2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qr-time-series-data-container-v2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qraijobrunner" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qrbacktest" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qrbasejobrunner" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qrbasejobrunner/qrbasejobrunner" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qrdeeplosses" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qrdeepoptimizers" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qrfinetunejobrunner" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qrsampling" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qrtimeseriesdatacontainer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/qrutils" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/task_list_commits" vcs="Git" />
+  </component>
+</project>

@@ -1,0 +1,680 @@
+{
+	"config": {
+		"JobInformation": {
+			"TradingCalendar": "21",
+			"TimeZone": "257",
+			"ContinuousTraining": false,
+			"OperationalMode": "Real Time",
+			"OperationalSchedule": "Continuous",
+			"UsePreTrainedModel": false,
+			"DataSource": "Static",
+			"JobType": "Regression",
+			"DataType": "TimeSeries",
+			"InputWindowSize": 3,
+			"OutputWindowSize": 1,
+			"RunDiagnostics": false,
+			"Market": "2"
+		},
+		"DataProcessing": {
+			"Output": {
+				"OriginalForecastedProduct": 0,
+				"PostProcessedForecastedProduct": 0,
+				"TrainingSchedule": "0",
+				"OutputAPI": "0"
+			},
+			"MTSDefinition": {
+				"Curves": [
+					{
+						"CurveName": "MarketData:Node,1096",
+						"CurvePhase": "27",
+						"CurveGrain": "2",
+						"StartDate": "2021-04-01 00:00:00",
+						"EndDate": "2021-05-27 23:59:59"
+					},
+					{
+						"CurveName": "MarketData:Node,1096",
+						"CurvePhase": "16",
+						"CurveGrain": "2",
+						"StartDate": "2021-05-01 00:00:00",
+						"EndDate": "2021-05-30 23:59:59"
+					}
+				],
+				"DateType": "absolute",
+				"Operation": "Merge"
+			},
+			"ExecutionInterval": {
+				"StartDate": "2021-05-31 00:00:00",
+				"EndDate": "2021-06-02 23:59:59",
+				"DateType": "absolute"
+			},
+			"CurveDetails": [
+				{
+					"Label": "Target",
+					"Property": {
+						"PredictorType": "MainTimeSeries",
+						"OutputCurveName": "MarketData:Node,1096",
+						"OutputCurvePhase": "6",
+						"TargetType": "Value",
+						"FillForwardStrategy": "UseForwardCurve",
+						"ForwardCurve": [
+							{
+								"CurveName": "MarketData:Node,1096",
+								"CurvePhase": "27",
+								"CurveGrain": "2",
+								"IncludeInStartingPoint": false
+							}
+						]
+					},
+					"Processors": [
+						{
+							"Action": "GapFilling",
+							"Method": "LinearInterpolation"
+						},
+						{
+							"Action": "OutlierTreatment",
+							"Method": "MeanStandardDeviation",
+							"MeanCalculationMethod": "Moving",
+							"StdCalculationMethod": "Moving",
+							"WindowType": "Backward",
+							"WindowSize": 6,
+							"DeviationCoefficient": 1,
+							"Iteration": 3,
+							"ApplyRegion": "BothIntervals",
+							"ApplySide": "All",
+							"Replacement": {
+								"Method": "BasedOnDetectionAlgorithm"
+							}
+						}
+					]
+				},
+				{
+					"Label": "DAP",
+					"Property": {
+						"PredictorType": "External",
+						"CurveName": "MarketData:Node,1096",
+						"CurvePhase": "27",
+						"CurveGrain": "2",
+						"ShiftStrategy": "Enhanced",
+						"ShiftOffset": -24,
+						"ShiftRegion": "2",
+						"ShiftWeeklyPattern": true,
+						"FillForwardStrategy": null,
+						"EnableVisualization": true
+					},
+					"Processors": [
+						{
+							"Action": "GapFilling",
+							"Method": "LinearInterpolation"
+						},
+						{
+							"Action": "OutlierTreatment",
+							"Method": "MinMax",
+							"MinValue": 100,
+							"MaxValue": 10000,
+							"Iteration": 1,
+							"ApplyRegion": "BothIntervals",
+							"ApplySide": "Lower",
+							"Replacement": {
+								"Method": "MinMax",
+								"MinValue": 100,
+								"MaxValue": 10000,
+								"Iteration": 1,
+								"ApplyRegion": "BothIntervals",
+								"ApplySide": "Lower"
+							}
+						},
+						{
+							"Action": "OutlierTreatment",
+							"Method": "HampelFilter",
+							"WindowType": "Backward",
+							"WindowSize": 20,
+							"DeviationCoefficient": 0.5,
+							"Iteration": 1,
+							"ApplyRegion": "BothIntervals",
+							"ApplySide": "Upper",
+							"Replacement": {
+								"Method": "BasedOnDetectionAlgorithm"
+							}
+						},
+						{
+							"Action": "ExportForFormula"
+						},
+						{
+							"Action": "Scaling",
+							"Method": "MinMax",
+							"MinValue": 0,
+							"MaxValue": 1
+						}
+					],
+					"Input": [
+						"Input1",
+						"Input2"
+					]
+				},
+				{
+					"Label": "Demand",
+					"Property": {
+						"PredictorType": "External",
+						"PredictorId": "",
+						"CurveName": "MarketData:Node,1096,Type,2",
+						"CurvePhase": "16",
+						"CurveGrain": "2",
+						"ShiftStrategy": "Simple",
+						"ShiftOffset": 0,
+						"ShiftRegion": "2",
+						"ShiftWeeklyPattern": false,
+						"FillForwardStrategy": null,
+						"EnableVisualization": true
+					},
+					"Processors": [
+						{
+							"Action": "GapFilling",
+							"Method": "LinearInterpolation"
+						},
+						{
+							"Action": "ExportForFormula"
+						},
+						{
+							"Action": "PredictorFunction",
+							"Method": "sma",
+							"RearWindow": 6
+						},
+						{
+							"Action": "Quantization",
+							"Method": "Uniform",
+							"ClassNumber": "5"
+						},
+						{
+							"Action": "Encoding",
+							"Method": "Onehot",
+							"ClassNumber": "5",
+							"HandleUnknown": "error"
+						}
+					],
+					"Input": [
+						"Input1"
+					]
+				},
+				{
+					"Label": "Price-1",
+					"Property": {
+						"PredictorType": "MainTimeSeries",
+						"ShiftStrategy": "Simple",
+						"ShiftOffset": -1,
+						"ShiftRegion": "2",
+						"ShiftWeeklyPattern": true,
+						"EnableVisualization": true
+					},
+					"Processors": [
+						{
+							"Action": "GapFilling",
+							"Method": "LinearInterpolation"
+						},
+						{
+							"Action": "OutlierTreatment",
+							"Method": "MinMax",
+							"MinValue": 100,
+							"MaxValue": 17000,
+							"Iteration": 1,
+							"ApplyRegion": "BothIntervals",
+							"ApplySide": "All",
+							"Replacement": {
+								"Method": "BasedOnDetectionAlgorithm"
+							}
+						},
+						{
+							"Action": "Scaling",
+							"Method": "MinMax",
+							"MinValue": 0,
+							"MaxValue": 1
+						}
+					],
+					"Input": [
+						"Input1"
+					]
+				},
+				{
+					"Label": "Ratio",
+					"Property": {
+						"PredictorType": "Formula",
+						"CurveFormula": "DAP/Demand",
+						"FillForwardStrategy": null,
+						"EnableVisualization": true
+					},
+					"Processors": [
+						{
+							"Action": "GapFilling",
+							"Method": "LinearInterpolation"
+						},
+						{
+							"Action": "Scaling",
+							"Method": "MinMax",
+							"MinValue": 0,
+							"MaxValue": 1
+						}
+					],
+					"Input": [
+						"Input1"
+					]
+				},
+				{
+					"Label": "H",
+					"Property": {
+						"PredictorType": "Builtin",
+						"IndicatorName": "Hour",
+						"EnableVisualization": false
+					},
+					"Processors": [
+						{
+							"Action": "Encoding",
+							"Method": "Cosine"
+						}
+					],
+					"Input": [
+						"Input1"
+					]
+				},
+				{
+					"Label": "WD",
+					"Property": {
+						"PredictorType": "Builtin",
+						"IndicatorName": "Weekday",
+						"EnableVisualization": false
+					},
+					"Processors": [
+						{
+							"Action": "Encoding",
+							"Method": "Cosine"
+						}
+					],
+					"Input": [
+						"Input1"
+					]
+				}
+			]
+		},
+		"ai": {
+			"model_structure": {
+				"class_name": "Model",
+				"config": {
+					"name": "model_4",
+					"layers": [
+						{
+							"class_name": "InputLayer",
+							"config": {
+								"batch_input_shape": [
+									null,
+									28,
+									28,
+									1
+								],
+								"dtype": "float32",
+								"sparse": false,
+								"ragged": false,
+								"name": "Input1"
+							},
+							"name": "Input1",
+							"inbound_nodes": []
+						},
+						{
+							"class_name": "InputLayer",
+							"config": {
+								"batch_input_shape": [
+									null,
+									28,
+									28,
+									0
+								],
+								"dtype": "float32",
+								"sparse": false,
+								"ragged": false,
+								"name": "Input2"
+							},
+							"name": "Input2",
+							"inbound_nodes": []
+						},
+						{
+							"class_name": "Dense",
+							"config": {
+								"name": "dense_38",
+								"trainable": true,
+								"dtype": "float32",
+								"units": 64,
+								"activation": "relu",
+								"use_bias": true,
+								"kernel_initializer": {
+									"class_name": "GlorotUniform",
+									"config": {
+										"seed": null
+									}
+								},
+								"bias_initializer": {
+									"class_name": "Zeros",
+									"config": {}
+								},
+								"kernel_regularizer": null,
+								"bias_regularizer": null,
+								"activity_regularizer": null,
+								"kernel_constraint": null,
+								"bias_constraint": null
+							},
+							"name": "dense_38",
+							"inbound_nodes": [
+								[
+									[
+										"Input1",
+										0,
+										0,
+										{}
+									]
+								]
+							]
+						},
+						{
+							"class_name": "Dense",
+							"config": {
+								"name": "dense_36",
+								"trainable": true,
+								"dtype": "float32",
+								"units": 8,
+								"activation": "relu",
+								"use_bias": true,
+								"kernel_initializer": {
+									"class_name": "GlorotUniform",
+									"config": {
+										"seed": null
+									}
+								},
+								"bias_initializer": {
+									"class_name": "Zeros",
+									"config": {}
+								},
+								"kernel_regularizer": null,
+								"bias_regularizer": null,
+								"activity_regularizer": null,
+								"kernel_constraint": null,
+								"bias_constraint": null
+							},
+							"name": "dense_36",
+							"inbound_nodes": [
+								[
+									[
+										"Input2",
+										0,
+										0,
+										{}
+									]
+								]
+							]
+						},
+						{
+							"class_name": "Dense",
+							"config": {
+								"name": "dense_39",
+								"trainable": true,
+								"dtype": "float32",
+								"units": 32,
+								"activation": "relu",
+								"use_bias": true,
+								"kernel_initializer": {
+									"class_name": "GlorotUniform",
+									"config": {
+										"seed": null
+									}
+								},
+								"bias_initializer": {
+									"class_name": "Zeros",
+									"config": {}
+								},
+								"kernel_regularizer": null,
+								"bias_regularizer": null,
+								"activity_regularizer": null,
+								"kernel_constraint": null,
+								"bias_constraint": null
+							},
+							"name": "dense_39",
+							"inbound_nodes": [
+								[
+									[
+										"dense_38",
+										0,
+										0,
+										{}
+									]
+								]
+							]
+						},
+						{
+							"class_name": "Dense",
+							"config": {
+								"name": "dense_37",
+								"trainable": true,
+								"dtype": "float32",
+								"units": 4,
+								"activation": "relu",
+								"use_bias": true,
+								"kernel_initializer": {
+									"class_name": "GlorotUniform",
+									"config": {
+										"seed": null
+									}
+								},
+								"bias_initializer": {
+									"class_name": "Zeros",
+									"config": {}
+								},
+								"kernel_regularizer": null,
+								"bias_regularizer": null,
+								"activity_regularizer": null,
+								"kernel_constraint": null,
+								"bias_constraint": null
+							},
+							"name": "dense_37",
+							"inbound_nodes": [
+								[
+									[
+										"dense_36",
+										0,
+										0,
+										{}
+									]
+								]
+							]
+						},
+						{
+							"class_name": "Dense",
+							"config": {
+								"name": "dense_40",
+								"trainable": true,
+								"dtype": "float32",
+								"units": 4,
+								"activation": "relu",
+								"use_bias": true,
+								"kernel_initializer": {
+									"class_name": "GlorotUniform",
+									"config": {
+										"seed": null
+									}
+								},
+								"bias_initializer": {
+									"class_name": "Zeros",
+									"config": {}
+								},
+								"kernel_regularizer": null,
+								"bias_regularizer": null,
+								"activity_regularizer": null,
+								"kernel_constraint": null,
+								"bias_constraint": null
+							},
+							"name": "dense_40",
+							"inbound_nodes": [
+								[
+									[
+										"dense_39",
+										0,
+										0,
+										{}
+									]
+								]
+							]
+						},
+						{
+							"class_name": "Concatenate",
+							"config": {
+								"name": "concatenate_5",
+								"trainable": true,
+								"dtype": "float32",
+								"axis": -1
+							},
+							"name": "concatenate_5",
+							"inbound_nodes": [
+								[
+									[
+										"dense_37",
+										0,
+										0,
+										{}
+									],
+									[
+										"dense_40",
+										0,
+										0,
+										{}
+									]
+								]
+							]
+						},
+						{
+							"class_name": "Flatten",
+							"config": {
+								"data_format": "channels_last",
+								"dtype": "float32",
+								"name": "flatten_2",
+								"trainable": true
+							},
+							"inbound_nodes": [
+								[
+									[
+										"concatenate_5",
+										0,
+										0,
+										{}
+									]
+								]
+							],
+							"name": "flatten_2"
+						},
+						{
+							"class_name": "Dense",
+							"config": {
+								"name": "dense_41",
+								"trainable": true,
+								"dtype": "float32",
+								"units": 2,
+								"activation": "relu",
+								"use_bias": true,
+								"kernel_initializer": {
+									"class_name": "GlorotUniform",
+									"config": {
+										"seed": null
+									}
+								},
+								"bias_initializer": {
+									"class_name": "Zeros",
+									"config": {}
+								},
+								"kernel_regularizer": null,
+								"bias_regularizer": null,
+								"activity_regularizer": null,
+								"kernel_constraint": null,
+								"bias_constraint": null
+							},
+							"name": "dense_41",
+							"inbound_nodes": [
+								[
+									[
+										"flatten_2",
+										0,
+										0,
+										{}
+									]
+								]
+							]
+						},
+						{
+							"class_name": "Dense",
+							"config": {
+								"name": "dense_42",
+								"trainable": true,
+								"dtype": "float32",
+								"units": 1,
+								"activation": "linear",
+								"use_bias": true,
+								"kernel_initializer": {
+									"class_name": "GlorotUniform",
+									"config": {
+										"seed": null
+									}
+								},
+								"bias_initializer": {
+									"class_name": "Zeros",
+									"config": {}
+								},
+								"kernel_regularizer": null,
+								"bias_regularizer": null,
+								"activity_regularizer": null,
+								"kernel_constraint": null,
+								"bias_constraint": null
+							},
+							"name": "dense_42",
+							"inbound_nodes": [
+								[
+									[
+										"dense_41",
+										0,
+										0,
+										{}
+									]
+								]
+							]
+						}
+					],
+					"input_layers": [
+						[
+							"Input1",
+							0,
+							0
+						],
+						[
+							"Input2",
+							0,
+							0
+						]
+					],
+					"output_layers": [
+						[
+							"dense_42",
+							0,
+							0
+						]
+					]
+				},
+				"keras_version": "2.3.1",
+				"backend": "tensorflow"
+			},
+			"model_config": {
+				"name": "deepModelGeneral",
+				"epoch": 5,
+				"batch_size": 50,
+				"training_function": "adam",
+				"loss_function": "mse",
+				"seed": 0,
+				"window_size": 3,
+				"shuffle": false,
+				"validation_split": 0.1,
+				"learning_rate": 0.001
+			},
+			"model_type": "Deep"
+		}
+	}
+}

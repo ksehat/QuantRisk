@@ -1,0 +1,304 @@
+{
+	"config": {
+		"JobInformation": {
+			"TradingCalendar": "22",
+			"TimeZone": "257",
+			"ContinuousTraining": false,
+			"OperationalMode": "Real Time",
+			"OperationalSchedule": "Continuous",
+			"UsePreTrainedModel": null,
+			"useLevels": null,
+			"DataSource": "Static",
+			"JobType": "Regression",
+			"DataType": "TimeSeries",
+			"Market": "1",
+			"InputWindowSize": 1,
+			"OutputWindowSize": 1
+		},
+		"DataProcessing": {
+			"MTSDefinition": {
+				"Curves": [
+					{
+						"CurveName": "MarketData:Node,1096,Type,2",
+						"CurvePhase": "16",
+						"CurveGrain": "2",
+						"StartDate": "2020-06-01 00:00:00",
+						"EndDate": "2021-06-20 23:59:59",
+						"Type": "absolute"
+					}
+				],
+				"DateType": "relative",
+				"Operation": "Merge"
+			},
+			"ExecutionInterval": {
+				"DateType": "relative",
+				"StartDate": "2021-06-21 00:00:00",
+				"EndDate": "2021-06-27 23:59:59",
+				"Type": "absolute"
+			},
+			"CurveDetails": [
+				{
+					"Label": "DAP",
+					"Property": {
+						"PredictorType": "External",
+						"CurveLabel": "DAP",
+						"CurveName": "MarketData:Node,1096,Type,2",
+						"CurvePhase": "27",
+						"CurveGrain": "2",
+						"ShiftStrategy": "Simple",
+						"ShiftOffset": 0,
+						"ShiftRegion": "2",
+						"ShiftWeeklyPattern": false,
+						"ForwardCurve": [],
+						"FillForwardStrategy": null,
+						"EnableVisualization": false
+					},
+					"Processors": [
+						{
+							"Action": "GapFilling",
+							"Method": "Spline",
+							"Order": 2
+						},
+						{
+							"Action": "OutlierTreatment",
+							"Method": "MinMax",
+							"Iteration": 1,
+							"MinValue": 4000,
+							"MaxValue": 12000,
+							"ApplyRegion": "BothIntervals",
+							"ApplySide": "All",
+							"Replacement": {
+								"Method": "None",
+								"MeanCalculationMethod": null,
+								"DeviationCoefficient": 1,
+								"StdCalculationMethod": null,
+								"WindowType": null,
+								"WindowSize": null,
+								"MinValue": null,
+								"MaxValue": null
+							}
+						}
+					],
+					"Input": [
+						"Data Frame"
+					]
+				},
+				{
+					"Label": "load-1",
+					"Property": {
+						"PredictorType": "MainTimeSeries",
+						"CurveLabel": "load-1",
+						"ShiftStrategy": "Enhanced",
+						"ShiftOffset": -1,
+						"ShiftWeeklyPattern": true,
+						"ShiftRegion": "2",
+						"EnableVisualization": false
+					},
+					"Processors": [
+						{
+							"Action": "GapFilling",
+							"Method": "Spline",
+							"Order": 2
+						},
+						{
+							"Action": "OutlierTreatment",
+							"Method": "MinMax",
+							"Iteration": 1,
+							"MinValue": 4000,
+							"MaxValue": 12000,
+							"ApplyRegion": "BothIntervals",
+							"ApplySide": "All",
+							"Replacement": {
+								"Method": "None",
+								"MeanCalculationMethod": null,
+								"DeviationCoefficient": 1,
+								"StdCalculationMethod": null,
+								"WindowType": null,
+								"WindowSize": null,
+								"MinValue": null,
+								"MaxValue": null
+							}
+						}
+					],
+					"Input": [
+						"Data Frame"
+					]
+				},
+				{
+					"Label": "load-2",
+					"Property": {
+						"PredictorType": "MainTimeSeries",
+						"CurveLabel": "load-2",
+						"ShiftStrategy": "Enhanced",
+						"ShiftOffset": -2,
+						"ShiftWeeklyPattern": true,
+						"ShiftRegion": "2",
+						"EnableVisualization": false
+					},
+					"Processors": [
+						{
+							"Action": "GapFilling",
+							"Method": "Spline",
+							"Order": 2
+						},
+						{
+							"Action": "OutlierTreatment",
+							"Method": "MinMax",
+							"Iteration": 1,
+							"MinValue": 4000,
+							"MaxValue": 12000,
+							"ApplyRegion": "BothIntervals",
+							"ApplySide": "All",
+							"Replacement": {
+								"Method": "None",
+								"MeanCalculationMethod": null,
+								"DeviationCoefficient": 1,
+								"StdCalculationMethod": null,
+								"WindowType": null,
+								"WindowSize": null,
+								"MinValue": null,
+								"MaxValue": null
+							}
+						}
+					],
+					"Input": [
+						"Data Frame"
+					]
+				},
+				{
+					"Label": "load-24",
+					"Property": {
+						"PredictorType": "MainTimeSeries",
+						"CurveLabel": "load-24",
+						"ShiftStrategy": "Enhanced",
+						"ShiftOffset": -24,
+						"ShiftWeeklyPattern": true,
+						"ShiftRegion": "2",
+						"EnableVisualization": false
+					},
+					"Processors": [
+						{
+							"Action": "GapFilling",
+							"Method": "Spline",
+							"Order": 2
+						},
+						{
+							"Action": "OutlierTreatment",
+							"Method": "MinMax",
+							"Iteration": 1,
+							"MinValue": 4000,
+							"MaxValue": 12000,
+							"ApplyRegion": "BothIntervals",
+							"ApplySide": "All",
+							"Replacement": {
+								"Method": "None",
+								"MeanCalculationMethod": null,
+								"DeviationCoefficient": 1,
+								"StdCalculationMethod": null,
+								"WindowType": null,
+								"WindowSize": null,
+								"MinValue": null,
+								"MaxValue": null
+							}
+						}
+					],
+					"Input": [
+						"Data Frame"
+					]
+				},
+				{
+					"Label": "load-1w",
+					"Property": {
+						"PredictorType": "MainTimeSeries",
+						"CurveLabel": "load-1w",
+						"ShiftStrategy": "Enhanced",
+						"ShiftOffset": -1,
+						"ShiftWeeklyPattern": true,
+						"ShiftRegion": "10",
+						"EnableVisualization": false
+					},
+					"Processors": [],
+					"Input": []
+				},
+				{
+					"Label": "hour",
+					"Property": {
+						"PredictorType": "Builtin",
+						"CurveLabel": "hour",
+						"IndicatorName": "1",
+						"EnableVisualization": false
+					},
+					"Processors": [
+						{
+							"Action": "Encoding",
+							"Method": "Cosine"
+						}
+					],
+					"Input": [
+						"Data Frame"
+					]
+				},
+				{
+					"Label": "weekday",
+					"Property": {
+						"PredictorType": "Builtin",
+						"CurveLabel": "weekday",
+						"IndicatorName": "2",
+						"EnableVisualization": false
+					},
+					"Processors": [
+						{
+							"Action": "Encoding",
+							"Method": "OneHot",
+							"HandleUnknown": null
+						}
+					],
+					"Input": [
+						"Data Frame"
+					]
+				},
+				{
+					"Label": "Target",
+					"Property": {
+						"PredictorType": "MainTimeSeries",
+						"CurveLabel": "Target",
+						"OutputCurveName": "MarketData:Node,1096,Type,2",
+						"OutputCurvePhase": "121",
+						"TargetType": "Value",
+						"BinaryThreshold": null,
+						"FillForwardStrategy": "UseForecastedValue",
+						"EnableVisualization": true,
+						"ForwardCurve": []
+					},
+					"Processors": [
+						{
+							"Action": "GapFilling",
+							"Method": "Spline",
+							"Order": 2
+						}
+					],
+					"Input": []
+				}
+			]
+		},
+		"ai": {
+			"model_structure": {
+				"xgboost": true,
+				"lightgbm": false,
+				"TheilSen": true,
+				"Huber": true,
+				"final_estimator": "Huber"
+			},
+			"model_config": null,
+			"model_type": "StackingRegressor",
+			"Input_structure": [
+				{
+					"data_frame": "Data Frame",
+					"inputs": [
+						null
+					]
+				}
+			]
+		}
+	}
+}

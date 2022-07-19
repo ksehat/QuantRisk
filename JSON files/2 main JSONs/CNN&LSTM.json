@@ -1,0 +1,341 @@
+{
+  "name": "PJM MIDATL 5min DEEP Load Forecast 5mins",
+  "TradingCalendar": "1",
+  "TimeZone": "152",
+  "ContinuousTraining": false,
+  "OperationalMode": "Real Time",
+  "JobType": "",
+  "DataType": "",
+  "DataSource": "",
+  "InputWindowSize": "10",
+  "OutputWindowSize": "10",
+  "UsePreTrainedModel": false,
+  "company": "0",
+  "market": "16",
+  "OperationalSchedule": "Continuous",
+  "useLevels": false,
+  "description": "",
+  "DateType": "relative",
+  "StartDate": "",
+  "StartTime": "00:00",
+  "EndDate": "",
+  "EndTime": "00:00",
+  "StartOffset": "-12",
+  "StartRegion": 0,
+  "EndOffset": 0,
+  "EndRegion": "0",
+  "MTSDefinition": null,
+  "CurveDetails": null,
+  "ai": {
+    "model_structure": {
+      "class_name": "Model",
+      "config": {
+        "name": "A name for the model",
+        "layers": [
+          {
+            "name": "Input1",
+            "class_name": "InputLayer",
+            "config": {
+              "batch_input_shape": [],
+              "dtype": "float32",
+              "sparse": false,
+              "name": "Input1"
+            },
+            "inbound_nodes": [
+              []
+            ]
+          },
+          {
+            "name": "Input2",
+            "class_name": "InputLayer",
+            "config": {
+              "batch_input_shape": [],
+              "dtype": "float32",
+              "sparse": false,
+              "name": "Input2"
+            },
+            "inbound_nodes": [
+              []
+            ]
+          },
+          {
+            "name": "LSTM1",
+            "class_name": "LSTM",
+            "config": {
+              "name": "LSTM1",
+              "return_sequences": false,
+              "units": 4,
+              "activation": "relu",
+              "recurrent_activation": "tanh",
+              "kernel_initializer": {
+                "class_name": "RandomNormal",
+                "config": {
+                  "mean": 0,
+                  "stddev": 0.05,
+                  "seed": null
+                }
+              },
+              "recurrent_initializer": {
+                "class_name": "RandomNormal",
+                "config": {
+                  "mean": 0,
+                  "stddev": 0.05,
+                  "seed": null
+                }
+              },
+              "kernel_regularizer": {
+                "class_name": "L1L2",
+                "config": {
+                  "l1": 0,
+                  "l2": 0
+                }
+              },
+              "recurrent_regularizer": {
+                "class_name": "L1L2",
+                "config": {
+                  "l1": 0,
+                  "l2": 0
+                }
+              },
+              "recurrent_dropout": 0,
+              "implementation": 2
+            },
+            "inbound_nodes": [
+              [
+                [
+                  "Input2",
+                  0,
+                  0
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "conv1",
+            "class_name": "Conv1D",
+            "config": {
+              "name": "conv1",
+              "filters": 5,
+              "kernel_size": 3,
+              "strides": 1,
+              "padding": "same",
+              "activation": "relu",
+              "kernel_initializer": {
+                "class_name": "RandomNormal",
+                "config": {
+                  "mean": 0,
+                  "stddev": 0.05,
+                  "seed": null
+                }
+              },
+              "bias_initializer": {
+                "class_name": "Zeros",
+                "config": {}
+              },
+              "kernel_regularizer": {
+                "class_name": "L1L2",
+                "config": {
+                  "l1": 0,
+                  "l2": 0
+                }
+              }
+            },
+            "inbound_nodes": [
+              [
+                [
+                  "Input1",
+                  0,
+                  0
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "flatten1",
+            "class_name": "Flatten",
+            "config": {
+              "name": "flatten1",
+              "trainable": true,
+              "dtype": "float32",
+              "data_format": "channels_last"
+            },
+            "inbound_nodes": [
+              [
+                [
+                  "conv1",
+                  0,
+                  0
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "concat1",
+            "class_name": "Concatenate",
+            "config": {
+              "name": "concat1",
+              "trainable": true,
+              "dtype": "float32",
+              "axis": -1
+            },
+            "inbound_nodes": [
+              [
+                [
+                  "Dense2",
+                  0,
+                  0
+                ],
+                [
+                  "Dense1",
+                  0,
+                  0
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "Dense2",
+            "class_name": "Dense",
+            "config": {
+              "name": "Dense2",
+              "units": 5,
+              "activation": "linear",
+              "kernel_initializer": {
+                "class_name": "RandomNormal",
+                "config": {
+                  "mean": 0,
+                  "stddev": 0.05,
+                  "seed": null
+                }
+              },
+              "kernel_regularizer": {
+                "class_name": "L1L2",
+                "config": {
+                  "l1": 0,
+                  "l2": 0
+                }
+              }
+            },
+            "inbound_nodes": [
+              [
+                [
+                  "LSTM1",
+                  0,
+                  0
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "Dense1",
+            "class_name": "Dense",
+            "config": {
+              "name": "Dense1",
+              "units": 5,
+              "activation": "linear",
+              "kernel_initializer": {
+                "class_name": "RandomNormal",
+                "config": {
+                  "mean": 0,
+                  "stddev": 0.05,
+                  "seed": null
+                }
+              },
+              "kernel_regularizer": {
+                "class_name": "L1L2",
+                "config": {
+                  "l1": 0,
+                  "l2": 0
+                }
+              }
+            },
+            "inbound_nodes": [
+              [
+                [
+                  "flatten1",
+                  0,
+                  0
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "Dense",
+            "class_name": "Dense",
+            "config": {
+              "name": "Dense",
+              "units": 1,
+              "activation": "linear",
+              "kernel_initializer": {
+                "class_name": "RandomNormal",
+                "config": {
+                  "mean": 0,
+                  "stddev": 0.05,
+                  "seed": null
+                }
+              },
+              "kernel_regularizer": {
+                "class_name": "L1L2",
+                "config": {
+                  "l1": 0,
+                  "l2": 0
+                }
+              }
+            },
+            "inbound_nodes": [
+              [
+                [
+                  "concat1",
+                  0,
+                  0
+                ]
+              ]
+            ]
+          }
+        ],
+        "input_layers": [
+          [
+            "Input1",
+            0,
+            0
+          ],
+          [
+            "Input2",
+            0,
+            0
+          ]
+        ],
+        "output_layers": [
+          [
+            "Dense",
+            0,
+            0
+          ]
+        ]
+      },
+      "keras_version": "2.3.1",
+      "backend": "tensorflow"
+    },
+    "model_config": {
+      "name": "deepModelGeneral",
+      "config": {
+        "name": "deepModelGeneral",
+        "epoch": 100,
+        "batch_size": 30,
+        "training_function": "adam",
+        "loss_function": "mse",
+        "seed": 0,
+        "window_size": 5,
+        "shuffle": false,
+        "validation_split": 0.1,
+        "learning_rate": 0.001
+      }
+    },
+    "model_type": "Deep"
+  },
+  "AllCharts": null,
+  "runDiagnostics": false,
+  "independentRun": false,
+  "jobId": 1223,
+  "runId": 216419
+}
